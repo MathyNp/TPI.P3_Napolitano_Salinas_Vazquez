@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "dgSpecHash": "Ow2tZ4UQMjyuyCyDeIol01iU1/N2lP7qIjrJJ6j3ECSiK4+PxeZj/qicwcu4tWDtTyKeE6foP+4PmnzZgsQwGQ==",
+  "success": true,
+  "projectFilePath": "D:\\Facultad\\TPI P3\\TPI.P3_Napolitano_Salinas_Vazquez\\TPI_NapolitanoSalinasVazquez_P3\\TPI_NapolitanoSalinasVazquez_P3\\TPI_NapolitanoSalinasVazquez_P3.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\mathy\\.nuget\\packages\\microsoft.extensions.apidescription.server\\6.0.5\\microsoft.extensions.apidescription.server.6.0.5.nupkg.sha512",
+    "C:\\Users\\mathy\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",
+    "C:\\Users\\mathy\\.nuget\\packages\\swashbuckle.aspnetcore\\6.5.0\\swashbuckle.aspnetcore.6.5.0.nupkg.sha512",
+    "C:\\Users\\mathy\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\6.5.0\\swashbuckle.aspnetcore.swagger.6.5.0.nupkg.sha512",
+    "C:\\Users\\mathy\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\6.5.0\\swashbuckle.aspnetcore.swaggergen.6.5.0.nupkg.sha512",
+    "C:\\Users\\mathy\\.nuget\\packages\\swashbuckle.aspnetcore.swaggerui\\6.5.0\\swashbuckle.aspnetcore.swaggerui.6.5.0.nupkg.sha512"
+  ],
+  "logs": []
+}
