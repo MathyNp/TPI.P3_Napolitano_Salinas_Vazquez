@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Facultad\\TPI P3\\TPI.P3_Napolitano_Salinas_Vazquez\\TPI_NapolitanoSalinasVazquez_P3\\TPI_NapolitanoSalinasVazquez_P3\\TPI_NapolitanoSalinasVazquez_P3.csproj": {}
+    "C:\\Users\\Ariel\\Documents\\GitHub\\TPI.P3_Napolitano_Salinas_Vazquez\\TPI_NapolitanoSalinasVazquez_P3\\TPI_NapolitanoSalinasVazquez_P3\\TPI_NapolitanoSalinasVazquez_P3.csproj": {}
   },
   "projects": {
-    "D:\\Facultad\\TPI P3\\TPI.P3_Napolitano_Salinas_Vazquez\\TPI_NapolitanoSalinasVazquez_P3\\TPI_NapolitanoSalinasVazquez_P3\\TPI_NapolitanoSalinasVazquez_P3.csproj": {
+    "C:\\Users\\Ariel\\Documents\\GitHub\\TPI.P3_Napolitano_Salinas_Vazquez\\TPI_NapolitanoSalinasVazquez_P3\\TPI_NapolitanoSalinasVazquez_P3\\TPI_NapolitanoSalinasVazquez_P3.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Facultad\\TPI P3\\TPI.P3_Napolitano_Salinas_Vazquez\\TPI_NapolitanoSalinasVazquez_P3\\TPI_NapolitanoSalinasVazquez_P3\\TPI_NapolitanoSalinasVazquez_P3.csproj",
+        "projectUniqueName": "C:\\Users\\Ariel\\Documents\\GitHub\\TPI.P3_Napolitano_Salinas_Vazquez\\TPI_NapolitanoSalinasVazquez_P3\\TPI_NapolitanoSalinasVazquez_P3\\TPI_NapolitanoSalinasVazquez_P3.csproj",
         "projectName": "TPI_NapolitanoSalinasVazquez_P3",
-        "projectPath": "D:\\Facultad\\TPI P3\\TPI.P3_Napolitano_Salinas_Vazquez\\TPI_NapolitanoSalinasVazquez_P3\\TPI_NapolitanoSalinasVazquez_P3\\TPI_NapolitanoSalinasVazquez_P3.csproj",
-        "packagesPath": "C:\\Users\\mathy\\.nuget\\packages\\",
-        "outputPath": "D:\\Facultad\\TPI P3\\TPI.P3_Napolitano_Salinas_Vazquez\\TPI_NapolitanoSalinasVazquez_P3\\TPI_NapolitanoSalinasVazquez_P3\\obj\\",
+        "projectPath": "C:\\Users\\Ariel\\Documents\\GitHub\\TPI.P3_Napolitano_Salinas_Vazquez\\TPI_NapolitanoSalinasVazquez_P3\\TPI_NapolitanoSalinasVazquez_P3\\TPI_NapolitanoSalinasVazquez_P3.csproj",
+        "packagesPath": "C:\\Users\\Ariel\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Ariel\\Documents\\GitHub\\TPI.P3_Napolitano_Salinas_Vazquez\\TPI_NapolitanoSalinasVazquez_P3\\TPI_NapolitanoSalinasVazquez_P3\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\mathy\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Ariel\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -40,6 +40,30 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "dependencies": {
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[7.0.12, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[7.0.12, )"
+            },
+            "Microsoft.EntityFrameworkCore.Relational": {
+              "target": "Package",
+              "version": "[7.0.12, )"
+            },
+            "Microsoft.EntityFrameworkCore.Sqlite": {
+              "target": "Package",
+              "version": "[7.0.12, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[7.0.12, )"
+            },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[6.5.0, )"
@@ -64,7 +88,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.400\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.202\\RuntimeIdentifierGraph.json"
         }
       }
     }

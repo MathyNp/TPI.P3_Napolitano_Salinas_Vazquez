@@ -2,9 +2,8 @@
 {
     public class Admin : User
     {
-        // public void? addProduct() { } 
-        // public void? removeProduct() { }
-        // public void? addStock() { }
+
+        public DateTime lastConnection { get; set; }
 
     }
 }
