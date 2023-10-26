@@ -2,8 +2,8 @@
 {
     public class Client : User
     {
-        //public (bool, string) AddProductToCart() { }
-        //public (bool,string) RemoveProductToCart() { }
-        //public (bool,string) Pay() { }
+        
+        public string address { get; set; }
+        public string paymentMethod { get; set; }
     }
 }
