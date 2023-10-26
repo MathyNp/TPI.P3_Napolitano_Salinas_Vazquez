@@ -8,6 +8,8 @@
         public DateOnly DateOnly { get; set; }
         public string shippingAddress { get; set; }
 
+        public virtual Product Product { get; set; }
+
         // public (bool, string) Buy() { }
 
         // public string? ListInfo() { }

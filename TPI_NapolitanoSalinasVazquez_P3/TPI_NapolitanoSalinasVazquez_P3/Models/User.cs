@@ -1,7 +1,11 @@
-﻿namespace TPI_NapolitanoSalinasVazquez_P3.Models
+﻿//using TPI_NapolitanoSalinasVazquez_P3.Interfaces;
+
+namespace TPI_NapolitanoSalinasVazquez_P3.Models
 {
-    public class User
+    public class User 
     {
+        
+
         private int userID { get; set; }
         public string userName { get; set; }
         protected string userPassword { get; set; }
