@@ -25,7 +25,7 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Product>>> GetProducts()
         {
-            return await _context.Product.ToListAsync();
+            return Ok(await _context.Product.ToListAsync());
         }
 
         // POST: api/product
@@ -35,7 +35,7 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Controllers
             _context.Product.Add(product);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetProduct", new { id = product.productID }, product);
+            return Ok("creado ok");
         }
     }
 }
