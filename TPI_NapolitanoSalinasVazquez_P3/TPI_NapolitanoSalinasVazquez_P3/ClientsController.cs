@@ -36,7 +36,7 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Controllers
             }
 
             var client = await _context.Client
-                .FirstOrDefaultAsync(m => m.userID == id);
+                .FirstOrDefaultAsync(m => m.UserID == id);
             if (client == null)
             {
                 return NotFound();
@@ -90,7 +90,7 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("address,paymentMethod,userID,userName,userPassword,userMail,userRol")] Client client)
         {
-            if (id != client.userID)
+            if (id != client.UserID)
             {
                 return NotFound();
             }
@@ -104,7 +104,7 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ClientExists(client.userID))
+                    if (!ClientExists(client.UserID))
                     {
                         return NotFound();
                     }
@@ -127,7 +127,7 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Controllers
             }
 
             var client = await _context.Client
-                .FirstOrDefaultAsync(m => m.userID == id);
+                .FirstOrDefaultAsync(m => m.UserID == id);
             if (client == null)
             {
                 return NotFound();
@@ -157,7 +157,7 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Controllers
 
         private bool ClientExists(int id)
         {
-            return (_context.Client?.Any(e => e.userID == id)).GetValueOrDefault();
+            return (_context.Client?.Any(e => e.UserID == id)).GetValueOrDefault();
         }
     }
 }

@@ -11638,19 +11638,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Ariel\\.nuget\\packages\\": {}
+    "C:\\Users\\mathy\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Ariel\\Documents\\GitHub\\TPI.P3_Napolitano_Salinas_Vazquez\\TPI_NapolitanoSalinasVazquez_P3\\TPI_NapolitanoSalinasVazquez_P3\\TPI_NapolitanoSalinasVazquez_P3.csproj",
+      "projectUniqueName": "C:\\Users\\mathy\\Desktop\\TPIDB\\TPI.P3_Napolitano_Salinas_Vazquez\\TPI_NapolitanoSalinasVazquez_P3\\TPI_NapolitanoSalinasVazquez_P3\\TPI_NapolitanoSalinasVazquez_P3.csproj",
       "projectName": "TPI_NapolitanoSalinasVazquez_P3",
-      "projectPath": "C:\\Users\\Ariel\\Documents\\GitHub\\TPI.P3_Napolitano_Salinas_Vazquez\\TPI_NapolitanoSalinasVazquez_P3\\TPI_NapolitanoSalinasVazquez_P3\\TPI_NapolitanoSalinasVazquez_P3.csproj",
-      "packagesPath": "C:\\Users\\Ariel\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Ariel\\Documents\\GitHub\\TPI.P3_Napolitano_Salinas_Vazquez\\TPI_NapolitanoSalinasVazquez_P3\\TPI_NapolitanoSalinasVazquez_P3\\obj\\",
+      "projectPath": "C:\\Users\\mathy\\Desktop\\TPIDB\\TPI.P3_Napolitano_Salinas_Vazquez\\TPI_NapolitanoSalinasVazquez_P3\\TPI_NapolitanoSalinasVazquez_P3\\TPI_NapolitanoSalinasVazquez_P3.csproj",
+      "packagesPath": "C:\\Users\\mathy\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\mathy\\Desktop\\TPIDB\\TPI.P3_Napolitano_Salinas_Vazquez\\TPI_NapolitanoSalinasVazquez_P3\\TPI_NapolitanoSalinasVazquez_P3\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Ariel\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\mathy\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -11724,7 +11724,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.202\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.400\\RuntimeIdentifierGraph.json"
       }
     }
   }

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using TPI_NapolitanoSalinasVazquez_P3.Data;
 using TPI_NapolitanoSalinasVazquez_P3.Models;
+using TPI_NapolitanoSalinasVazquez_P3.Services;
 
 namespace TPI_NapolitanoSalinasVazquez_P3.Controllers
 {
@@ -15,28 +16,20 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Controllers
     [Route("api/[controller]")]
     public class UsersController : Controller
     {
-        private readonly TPI_NapolitanoSalinasVazquez_P3Context _context;
+        private readonly UserService _userService;
 
-        public UsersController(TPI_NapolitanoSalinasVazquez_P3Context context)
+        public UsersController(UserService userService)
         {
-            _context = context;
+            _userService = userService;
         }
 
-        [HttpGet]
-        public IActionResult GetUser()
-        {
-            return Ok(_context.User);
-        }
 
         [HttpPost]
-        public async Task<ActionResult<User>> PostUser(User user)
+        public IActionResult NewUser() 
         {
-            _context.User.Add(user);
-            await _context.SaveChangesAsync();
-
-            return Ok("creado ok");
-
+            return Ok(_userService.Register);
         }
+   
         
     }
 }

@@ -12,9 +12,10 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Data
         public TPI_NapolitanoSalinasVazquez_P3Context (DbContextOptions<TPI_NapolitanoSalinasVazquez_P3Context> options)
             : base(options)
         {
+
         }
 
-        public DbSet<TPI_NapolitanoSalinasVazquez_P3.Models.User> User { get; set; } = default!;
+        public DbSet<TPI_NapolitanoSalinasVazquez_P3.Models.User> Users { get; set; } = default!;
 
         public DbSet<TPI_NapolitanoSalinasVazquez_P3.Models.Product>? Product { get; set; }
 

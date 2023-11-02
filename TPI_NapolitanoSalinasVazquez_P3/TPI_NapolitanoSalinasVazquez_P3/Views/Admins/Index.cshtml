@@ -16,16 +16,16 @@
                 @Html.DisplayNameFor(model => model.lastConnection)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.userName)
+                @Html.DisplayNameFor(model => model.UserName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.userPassword)
+                @Html.DisplayNameFor(model => model.UserPassword)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.userMail)
+                @Html.DisplayNameFor(model => model.UserMail)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.userRol)
+                @Html.DisplayNameFor(model => model.UserRol)
             </th>
             <th></th>
         </tr>
@@ -37,21 +37,21 @@
                 @Html.DisplayFor(modelItem => item.lastConnection)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.userName)
+                @Html.DisplayFor(modelItem => item.UserName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.userPassword)
+                @Html.DisplayFor(modelItem => item.UserPassword)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.userMail)
+                @Html.DisplayFor(modelItem => item.UserMail)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.userRol)
+                @Html.DisplayFor(modelItem => item.UserRol)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.userID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.userID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.userID">Delete</a>
+                <a asp-action="Edit" asp-route-id="@item.UserID">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.UserID">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.UserID">Delete</a>
             </td>
         </tr>
 }

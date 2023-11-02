@@ -5,7 +5,8 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Models
 {
     public class Product
     {
-        
+        [Key] // Hace que la id sea la clave principal dentro de la BD
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)] // hace que la id se genere con cada product en la BD
         public int productID { get; set; }
 
         
