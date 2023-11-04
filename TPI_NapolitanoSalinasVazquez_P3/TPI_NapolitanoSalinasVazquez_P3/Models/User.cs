@@ -1,38 +1,19 @@
 ﻿//using TPI_NapolitanoSalinasVazquez_P3.Interfaces;
 
+using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
+
 namespace TPI_NapolitanoSalinasVazquez_P3.Models
 {
-    public class User 
+    public abstract class User 
     {
-        
-
-        private int userID { get; set; }
-        public string userName { get; set; }
-        protected string userPassword { get; set; }
-        public string userMail { get; set; }
-        public string userRol { get; set; }
-
-        public (bool, string) Login(string providedUserName, string providedUserPassword) // Provided se utiliza para los valores que se compara con la base de datos, osea son los valores obtenidos en un imput
-        {
-            if (providedUserName != userName)
-            { return (false, "Nombre de usuario incorrecto"); }
-
-            else
-            {
-                if (providedUserPassword == userPassword)
-                {
-
-                    return (true, "Inicio de sesión exitoso");
-                }
-                else
-                {
-                    return (false, "Contraseña incorrecta");
-                }
-            }
-        }
-
-        // public (bool,string) Register()
-
+        [Key] // Hace que la id sea la clave principal dentro de la BD
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)] // hace que la id se genere con cada user en la BD
+        public int UserID { get; set; }
+        public string UserName { get; set; }
+        public string UserPassword { get; set; }
+        public string UserMail { get; set; }
+        public string UserRol { get; set; }
 
     }
 }

@@ -2,19 +2,11 @@
 {
     public class ShoppingCart
     {
-        private int cartId { get; set; }
-        public int productAmount { get; set; }
-        public int totalPrice { get; set; }
-        public DateOnly DateOnly { get; set; }
-        public string shippingAddress { get; set; }
-
-        public virtual Product Product { get; set; }
-
-        // public (bool, string) Buy() { }
-
-        // public string? ListInfo() { }
-
-        // public (bool, string) Shipping() { }
+        private int CartId { get; set; }
+        public int ProductAmount { get; set; }
+        public int TotalPrice { get; set; }
+        public DateOnly Date { get; set; }
+        public string ShippingAddress { get; set; }
 
 
     }

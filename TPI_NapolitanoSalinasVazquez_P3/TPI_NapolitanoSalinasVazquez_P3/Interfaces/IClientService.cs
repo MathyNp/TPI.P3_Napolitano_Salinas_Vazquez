@@ -1,7 +1,6 @@
 ﻿namespace TPI_NapolitanoSalinasVazquez_P3.Interfaces
 {
-    public interface IUser
+    public interface IClientService
     {
-        
     }
 }
