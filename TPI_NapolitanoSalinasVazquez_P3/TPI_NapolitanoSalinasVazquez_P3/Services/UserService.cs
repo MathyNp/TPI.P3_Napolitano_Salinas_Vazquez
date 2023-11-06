@@ -62,8 +62,8 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Services
         {
             _context.Update(user);
             _context.SaveChanges();
-            }
-            return response;
+        }
+        
 
         // borrar usuario
         public void DeleteUser(int userId)
