@@ -580,3 +580,5 @@ C:\Users\mathy\Desktop\TPIDB\TPI.P3_Napolitano_Salinas_Vazquez\TPI_NapolitanoSal
 C:\Users\mathy\Desktop\TPIDB\TPI.P3_Napolitano_Salinas_Vazquez\TPI_NapolitanoSalinasVazquez_P3\TPI_NapolitanoSalinasVazquez_P3\obj\Debug\net6.0\TPI_NapolitanoSalinasVazquez_P3.pdb
 C:\Users\mathy\Desktop\TPIDB\TPI.P3_Napolitano_Salinas_Vazquez\TPI_NapolitanoSalinasVazquez_P3\TPI_NapolitanoSalinasVazquez_P3\obj\Debug\net6.0\TPI_NapolitanoSalinasVazquez_P3.genruntimeconfig.cache
 C:\Users\mathy\Desktop\TPIDB\TPI.P3_Napolitano_Salinas_Vazquez\TPI_NapolitanoSalinasVazquez_P3\TPI_NapolitanoSalinasVazquez_P3\obj\Debug\net6.0\ref\TPI_NapolitanoSalinasVazquez_P3.dll
+C:\Users\mathy\Desktop\TPIDB\TPI.P3_Napolitano_Salinas_Vazquez\TPI_NapolitanoSalinasVazquez_P3\TPI_NapolitanoSalinasVazquez_P3\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\mathy\Desktop\TPIDB\TPI.P3_Napolitano_Salinas_Vazquez\TPI_NapolitanoSalinasVazquez_P3\TPI_NapolitanoSalinasVazquez_P3\bin\Debug\net6.0\Microsoft.IdentityModel.Abstractions.dll

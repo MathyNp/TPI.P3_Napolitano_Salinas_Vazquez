@@ -15,64 +15,61 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Services
             _context = context;
         }
 
+        // validacion de credenciales - login
         public BaseResponse Login(string mail, string userPassword)
         {
             BaseResponse response = new BaseResponse();
-            User user = _context.Users.SingleOrDefault(u => u.UserMail == mail);
-
-            if (user != null)
+            User? userForLogin = _context.Users.SingleOrDefault(u => u.UserMail == mail);
+            if (userForLogin != null)
             {
-                if (user.UserPassword != userPassword)
+                if (userForLogin.UserPassword == userPassword)
                 {
-                    response.IsSuccess = false;
-                    response.Message = "Error al iniciar sesion";
+                    response.IsSuccess = true;
+                    response.Message = "loging Succesfull";
                 }
                 else
                 {
-                    response.IsSuccess = true;
-                    response.Message = "Inicio de sesion exitoso";
+                    response.IsSuccess = false;
+                    response.Message = "wrong password";
                 }
-            }
-            else 
-            {
-                response.IsSuccess = false;
-                response.Message = "No existe el usuario";
-            }
-
-            return response;
-        }
-
-        public BaseResponse Register(string mail, string password) 
-        {
-            BaseResponse response = new BaseResponse();
-
-            if (_context.Set<User>().Any(u => u.UserMail == mail))
-            {
-                response.IsSuccess = false;
-                response.Message = "El usuario ya existe";
             }
             else
             {
-                
-                User newuser = new User
-                {
-                    UserMail = mail,
-                    UserPassword = password
-                };
-
-                _context.Users.Add(newuser);
-                _context.SaveChanges();
-
-                response.IsSuccess = true;
-                response.Message = "Usuario creado con exito";
+                response.IsSuccess = false;
+                response.Message = "wrong email";
             }
-
             return response;
-
         }
 
+        //buscar usuario por mail
+        public User? GetUserByEmail(string email)
+        {
+            return _context.Users.SingleOrDefault(u => u.UserMail == email);
+        }
 
+        // crear usuario
+        public int CreateUser(User user)
+        {
+            _context.Add(user);
+            _context.SaveChanges();
+            return user.UserID;
+        }
 
+        // actualizar datos del usuario
+        public void UpdateUser(User user)
+        {
+            _context.Update(user);
+            _context.SaveChanges();
+        }
+
+        // borrar usuario
+        public void DeleteUser(int userId)
+        {
+            User userToBeDeleted = _context.Users.FirstOrDefault(u => u.UserID == userId);
+            userToBeDeleted.UserState = false;
+            _context.Update(userToBeDeleted);
+            _context.SaveChanges();
+        }
 
 
     }

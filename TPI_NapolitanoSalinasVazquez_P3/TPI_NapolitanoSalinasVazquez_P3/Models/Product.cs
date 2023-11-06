@@ -9,13 +9,13 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)] // hace que la id se genere con cada product en la BD
         public int productID { get; set; }
 
-        
-        public string productName { get; set; }
+        public string? productName { get; set; }
 
-        
         public int productPrice { get; set; }
 
-        
         public int productStock { get; set; }
+
+        public bool productState { get; set; } = false;
+
     }
 }

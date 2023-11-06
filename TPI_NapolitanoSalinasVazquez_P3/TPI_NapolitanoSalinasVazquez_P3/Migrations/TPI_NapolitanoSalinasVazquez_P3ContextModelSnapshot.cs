@@ -24,10 +24,12 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("productName")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<int>("productPrice")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("productState")
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("productStock")
@@ -38,9 +40,54 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Migrations
                     b.ToTable("Product");
                 });
 
+            modelBuilder.Entity("TPI_NapolitanoSalinasVazquez_P3.Models.SaleOrderLine", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<decimal>("ProductPrice")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("ProductQuantity")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("SaleOrderLineId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.HasIndex("SaleOrderLineId");
+
+                    b.ToTable("SaleOrderLine");
+                });
+
+            modelBuilder.Entity("TPI_NapolitanoSalinasVazquez_P3.Models.ShoppingCart", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("CartId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("CartUser")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ShoppingCart");
+                });
+
             modelBuilder.Entity("TPI_NapolitanoSalinasVazquez_P3.Models.User", b =>
                 {
-                    b.Property<int>("userID")
+                    b.Property<int>("UserID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
@@ -48,25 +95,28 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("userMail")
+                    b.Property<string>("UserMail")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("userName")
+                    b.Property<string>("UserName")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("userPassword")
+                    b.Property<string>("UserPassword")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("userRol")
+                    b.Property<string>("UserRol")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.HasKey("userID");
+                    b.Property<bool>("UserState")
+                        .HasColumnType("INTEGER");
 
-                    b.ToTable("User");
+                    b.HasKey("UserID");
+
+                    b.ToTable("Users");
 
                     b.HasDiscriminator<string>("Discriminator").HasValue("User");
 
@@ -87,6 +137,9 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Migrations
                 {
                     b.HasBaseType("TPI_NapolitanoSalinasVazquez_P3.Models.User");
 
+                    b.Property<int>("UserCartId")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("address")
                         .IsRequired()
                         .HasColumnType("TEXT");
@@ -95,7 +148,43 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.HasIndex("UserCartId")
+                        .IsUnique();
+
                     b.HasDiscriminator().HasValue("Client");
+                });
+
+            modelBuilder.Entity("TPI_NapolitanoSalinasVazquez_P3.Models.SaleOrderLine", b =>
+                {
+                    b.HasOne("TPI_NapolitanoSalinasVazquez_P3.Models.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("TPI_NapolitanoSalinasVazquez_P3.Models.ShoppingCart", null)
+                        .WithMany("saleOrderLines")
+                        .HasForeignKey("SaleOrderLineId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("TPI_NapolitanoSalinasVazquez_P3.Models.Client", b =>
+                {
+                    b.HasOne("TPI_NapolitanoSalinasVazquez_P3.Models.ShoppingCart", "UserCart")
+                        .WithOne()
+                        .HasForeignKey("TPI_NapolitanoSalinasVazquez_P3.Models.Client", "UserCartId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("UserCart");
+                });
+
+            modelBuilder.Entity("TPI_NapolitanoSalinasVazquez_P3.Models.ShoppingCart", b =>
+                {
+                    b.Navigation("saleOrderLines");
                 });
 #pragma warning restore 612, 618
         }
