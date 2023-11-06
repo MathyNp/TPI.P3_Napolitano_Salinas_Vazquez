@@ -1,8 +1,10 @@
-﻿using TPI_NapolitanoSalinasVazquez_P3.Interfaces;
+﻿using SQLitePCL;
+using TPI_NapolitanoSalinasVazquez_P3.Interfaces;
 using TPI_NapolitanoSalinasVazquez_P3.Models;
 using TPI_NapolitanoSalinasVazquez_P3.Models.Responses;
 using System.Linq;
 using TPI_NapolitanoSalinasVazquez_P3.Data;
+
 
 namespace TPI_NapolitanoSalinasVazquez_P3.Services
 {
@@ -23,18 +25,18 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Services
             if (userForLogin != null)
             {
                 if (userForLogin.UserPassword == userPassword)
-                {
+                    {
                     response.IsSuccess = true;
                     response.Message = "loging Succesfull";
-                }
-                else
-                {
+                    }
+                    else
+                    {
                     response.IsSuccess = false;
                     response.Message = "wrong password";
                 }
-            }
-            else
-            {
+                    }
+            else 
+                {
                 response.IsSuccess = false;
                 response.Message = "wrong email";
             }
@@ -53,14 +55,15 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Services
             _context.Add(user);
             _context.SaveChanges();
             return user.UserID;
-        }
+                }
 
         // actualizar datos del usuario
         public void UpdateUser(User user)
         {
             _context.Update(user);
             _context.SaveChanges();
-        }
+            }
+            return response;
 
         // borrar usuario
         public void DeleteUser(int userId)
