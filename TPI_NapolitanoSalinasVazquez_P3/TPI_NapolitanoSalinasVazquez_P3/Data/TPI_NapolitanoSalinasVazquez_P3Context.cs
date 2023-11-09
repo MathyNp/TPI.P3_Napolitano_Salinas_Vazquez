@@ -11,9 +11,16 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Data
     {
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<User>().HasDiscriminator(u => u.UserRol);
-            modelBuilder.Entity<Admin>();
-            modelBuilder.Entity<Client>();
+            modelBuilder.Entity<User>()
+                .HasDiscriminator(u => u.UserRol)
+                .HasValue<Client>(UserRoleEnum.Client)
+                .HasValue<Admin>(UserRoleEnum.Admin);
+
+            modelBuilder.Entity<Admin>()
+                .HasBaseType<User>();
+
+            modelBuilder.Entity<Client>()
+                .HasBaseType<User>();
 
             modelBuilder.Entity<SaleOrderLine>()
                 .HasOne(sol => sol.Product)
