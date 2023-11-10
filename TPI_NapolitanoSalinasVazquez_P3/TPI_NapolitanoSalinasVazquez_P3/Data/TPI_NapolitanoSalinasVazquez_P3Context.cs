@@ -37,6 +37,18 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Data
                 .WithOne()
                 .HasForeignKey<Client>(c => c.UserCartId);
 
+            modelBuilder.Entity<Admin>().HasData(
+                new Admin
+                {
+                    UserName = "admin",
+                    UserPassword = "admin",                  
+                    
+                    UserMail = "admin@admin.com",
+                    UserID = 1
+
+                }
+                );
+
         }
 
         public TPI_NapolitanoSalinasVazquez_P3Context (DbContextOptions<TPI_NapolitanoSalinasVazquez_P3Context> options)
