@@ -2,40 +2,43 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using TPI_NapolitanoSalinasVazquez_P3.Data;
+using TPI_NapolitanoSalinasVazquez_P3.Interfaces;
 using TPI_NapolitanoSalinasVazquez_P3.Models;
+using TPI_NapolitanoSalinasVazquez_P3.Services;
 
 namespace TPI_NapolitanoSalinasVazquez_P3.Controllers
 {
 
     [ApiController]
     [Route("api/[controller]")]
+    
     public class ProductsController : ControllerBase
     {
-        private readonly TPI_NapolitanoSalinasVazquez_P3Context _context;
+        private readonly IProductService _productService;
 
-        public ProductsController(TPI_NapolitanoSalinasVazquez_P3Context context)
+        public ProductsController(IProductService productService)
         {
-            _context = context;
+            _productService = productService;
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Product>>> GetProducts()
+        public IEnumerable<Product> GetProducts()
         {
-            return Ok(await _context.Product.ToListAsync());
+            return _productService.GetAll();
         }
 
-        // POST: api/product
         [HttpPost]
-        public async Task<ActionResult<Product>> PostProduct(Product product)
+        public IActionResult AddProduct(Product product)
         {
-            _context.Product.Add(product);
-            await _context.SaveChangesAsync();
-
-            return Ok("creado ok");
+            _productService.Add(product);
+            return Ok();
         }
+
+
     }
 }

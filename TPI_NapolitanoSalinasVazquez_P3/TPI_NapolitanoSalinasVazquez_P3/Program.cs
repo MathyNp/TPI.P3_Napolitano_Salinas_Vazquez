@@ -51,6 +51,7 @@ builder.Services.AddDbContext<TPI_NapolitanoSalinasVazquez_P3Context>(options =>
 builder.Services.AddScoped<IAdminService, AdminService>();
 builder.Services.AddScoped<IClientService, ClientService>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IProductService, ProductService>();
 #endregion
 
 
