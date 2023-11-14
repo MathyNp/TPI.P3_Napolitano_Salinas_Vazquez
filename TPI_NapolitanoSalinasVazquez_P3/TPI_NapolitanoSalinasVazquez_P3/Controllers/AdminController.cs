@@ -43,5 +43,26 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Controllers
             }
             return Forbid();
         }
+
+        [HttpPut]
+        public IActionResult updateAdmin([FromBody] UserUpdateDto dto)
+        {
+            string rol = User.Claims.FirstOrDefault(C => C.Type == ClaimTypes.Role).Value.ToString();
+
+            if (rol == UserRoleEnum.Admin.ToString())
+            {
+                Admin admintoupdate = new Admin()
+                {
+                    UserID = int.Parse(User.Claims.FirstOrDefault(C => C.Type == ClaimTypes.NameIdentifier).Value),
+                    UserMail = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email).Value,
+                    UserName = User.Claims.FirstOrDefault(c => c.Type.Contains("username")).Value,
+                    UserPassword = dto.UserPassword,
+
+                };
+                _userService.UpdateUser(admintoupdate);
+                return Ok();
+            }
+            return Forbid();
+        }
     }
 }
