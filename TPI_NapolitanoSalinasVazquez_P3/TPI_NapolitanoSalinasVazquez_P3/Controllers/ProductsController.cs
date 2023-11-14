@@ -1,15 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using TPI_NapolitanoSalinasVazquez_P3.Data;
+﻿using Microsoft.AspNetCore.Mvc;
 using TPI_NapolitanoSalinasVazquez_P3.Interfaces;
 using TPI_NapolitanoSalinasVazquez_P3.Models;
-using TPI_NapolitanoSalinasVazquez_P3.Services;
 
 namespace TPI_NapolitanoSalinasVazquez_P3.Controllers
 {
@@ -26,7 +17,7 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Controllers
             _productService = productService;
         }
 
-        [HttpGet]
+        [HttpGet("GetAll")]
         public IActionResult GetProducts()
         {
             var products = _productService.GetAll();
@@ -38,7 +29,7 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Controllers
             return Ok(products);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("GetById/{id}")]
         public IActionResult GetProductById(int id)
         {
             var product = _productService.GetById(id);
@@ -50,14 +41,14 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Controllers
 
         }
 
-        [HttpPost]
+        [HttpPost("CreateProduct")]
         public IActionResult AddProduct(Product product)
         {
             _productService.Add(product);
             return Ok("Creado correctamente.");
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("ChangeState/{id}")]
         public IActionResult ChangeState(int id, bool? newState)
         {
             try
@@ -71,7 +62,21 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Controllers
             }
         }
 
-        [HttpDelete]
+        [HttpPut("ModifyProduct/{id}")]
+        public IActionResult ModifyProduct(int id, Product updatedProduct)
+        {
+            try
+            {
+                _productService.Update(id, updatedProduct);
+                return Ok("Actualizado correctamente.");
+            }
+            catch (ArgumentException ex)
+            {
+                return NotFound(ex.Message);
+            }
+        }
+
+        [HttpDelete("DELETEALL")]
         public IActionResult DeleteProducts() 
         {
             var products = _productService.GetAll();
@@ -81,6 +86,20 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Controllers
             }
             _productService.DeleteAll();
             return Ok("Borrado correctamente.");
+        }
+
+        [HttpPut("SellProduct/{id}")]
+        public IActionResult SellProduct(int id)
+        {
+            var product = _productService.GetById(id);
+
+            if (product.productState == false)
+            {
+                return Conflict("Producto no disponible para la venta.");
+            }
+
+            _productService.ProductSell(id);
+            return Ok("Actualizado");
         }
 
 

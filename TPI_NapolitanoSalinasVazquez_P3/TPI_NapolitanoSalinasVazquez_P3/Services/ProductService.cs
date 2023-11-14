@@ -50,5 +50,60 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Services
             product.productState = newState.Value;
             _context.SaveChanges();
         }
+        // ...
+
+        public void Update(int id, Product updatedProduct)
+        {
+            var product = _context.Product.Find(id);
+
+            if (product == null)
+            {
+                throw new ArgumentException($"No se encontró un producto con el ID {id}.");
+            }            
+
+            if (updatedProduct.productName == "string")
+            {
+                product.productName = product.productName;
+            } 
+            else
+            {
+                product.productName = updatedProduct.productName;
+            }
+
+            if (updatedProduct.productPrice == 0)
+            {
+                product.productPrice = product.productPrice;
+            }
+            else
+            {
+                product.productPrice = updatedProduct.productPrice;
+            }
+
+            if (updatedProduct.productStock == 0)
+            {
+                product.productStock = product.productStock;
+            }
+            else
+            {
+                product.productStock = updatedProduct.productStock;
+            }
+            _context.SaveChanges();
+        }
+
+        public void ProductSell(int id) 
+        {
+            var product = _context.Product.Find(id);
+
+            product.productStock = product.productStock - 1;
+            
+            
+            if (product.productStock == 0)
+            {
+                product.productState = false;
+            }
+
+            _context.SaveChanges();
+        }
+
     }
 }

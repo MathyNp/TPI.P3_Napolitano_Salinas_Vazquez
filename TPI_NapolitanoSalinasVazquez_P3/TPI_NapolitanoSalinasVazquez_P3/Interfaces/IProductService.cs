@@ -14,5 +14,9 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Interfaces
         Product GetById(int id);
 
         void ChangeState(int id, bool? newState);
+
+        void Update(int id, Product product);
+
+        void ProductSell(int id);
     }
 }
