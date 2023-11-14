@@ -9,6 +9,10 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Interfaces
 
         void Add(Product product);
 
+        void DeleteAll();
 
+        Product GetById(int id);
+
+        void ChangeState(int id, bool? newState);
     }
 }
