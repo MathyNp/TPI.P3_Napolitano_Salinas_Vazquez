@@ -9,93 +9,93 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = TPI_NapolitanoSalinasVazquez_P3
 build_property.RootNamespace = TPI_NapolitanoSalinasVazquez_P3
-build_property.ProjectDir = C:\Users\Ariel\Documents\GitHub\TPI.P3_Napolitano_Salinas_Vazquez\TPI_NapolitanoSalinasVazquez_P3\TPI_NapolitanoSalinasVazquez_P3\
+build_property.ProjectDir = C:\Users\mathy\Desktop\TPIO\TPI.P3_Napolitano_Salinas_Vazquez\TPI_NapolitanoSalinasVazquez_P3\TPI_NapolitanoSalinasVazquez_P3\
 build_property.RazorLangVersion = 6.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = C:\Users\Ariel\Documents\GitHub\TPI.P3_Napolitano_Salinas_Vazquez\TPI_NapolitanoSalinasVazquez_P3\TPI_NapolitanoSalinasVazquez_P3
+build_property.MSBuildProjectDirectory = C:\Users\mathy\Desktop\TPIO\TPI.P3_Napolitano_Salinas_Vazquez\TPI_NapolitanoSalinasVazquez_P3\TPI_NapolitanoSalinasVazquez_P3
 build_property._RazorSourceGeneratorDebug = 
 
-[C:/Users/Ariel/Documents/GitHub/TPI.P3_Napolitano_Salinas_Vazquez/TPI_NapolitanoSalinasVazquez_P3/TPI_NapolitanoSalinasVazquez_P3/Views/Admins/Create.cshtml]
+[C:/Users/mathy/Desktop/TPIO/TPI.P3_Napolitano_Salinas_Vazquez/TPI_NapolitanoSalinasVazquez_P3/TPI_NapolitanoSalinasVazquez_P3/Views/Admins/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5zXENyZWF0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Ariel/Documents/GitHub/TPI.P3_Napolitano_Salinas_Vazquez/TPI_NapolitanoSalinasVazquez_P3/TPI_NapolitanoSalinasVazquez_P3/Views/Admins/Delete.cshtml]
+[C:/Users/mathy/Desktop/TPIO/TPI.P3_Napolitano_Salinas_Vazquez/TPI_NapolitanoSalinasVazquez_P3/TPI_NapolitanoSalinasVazquez_P3/Views/Admins/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5zXERlbGV0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Ariel/Documents/GitHub/TPI.P3_Napolitano_Salinas_Vazquez/TPI_NapolitanoSalinasVazquez_P3/TPI_NapolitanoSalinasVazquez_P3/Views/Admins/Details.cshtml]
+[C:/Users/mathy/Desktop/TPIO/TPI.P3_Napolitano_Salinas_Vazquez/TPI_NapolitanoSalinasVazquez_P3/TPI_NapolitanoSalinasVazquez_P3/Views/Admins/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5zXERldGFpbHMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Ariel/Documents/GitHub/TPI.P3_Napolitano_Salinas_Vazquez/TPI_NapolitanoSalinasVazquez_P3/TPI_NapolitanoSalinasVazquez_P3/Views/Admins/Edit.cshtml]
+[C:/Users/mathy/Desktop/TPIO/TPI.P3_Napolitano_Salinas_Vazquez/TPI_NapolitanoSalinasVazquez_P3/TPI_NapolitanoSalinasVazquez_P3/Views/Admins/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5zXEVkaXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Ariel/Documents/GitHub/TPI.P3_Napolitano_Salinas_Vazquez/TPI_NapolitanoSalinasVazquez_P3/TPI_NapolitanoSalinasVazquez_P3/Views/Admins/Index.cshtml]
+[C:/Users/mathy/Desktop/TPIO/TPI.P3_Napolitano_Salinas_Vazquez/TPI_NapolitanoSalinasVazquez_P3/TPI_NapolitanoSalinasVazquez_P3/Views/Admins/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5zXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Ariel/Documents/GitHub/TPI.P3_Napolitano_Salinas_Vazquez/TPI_NapolitanoSalinasVazquez_P3/TPI_NapolitanoSalinasVazquez_P3/Views/Clients/Create.cshtml]
+[C:/Users/mathy/Desktop/TPIO/TPI.P3_Napolitano_Salinas_Vazquez/TPI_NapolitanoSalinasVazquez_P3/TPI_NapolitanoSalinasVazquez_P3/Views/Clients/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2xpZW50c1xDcmVhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Ariel/Documents/GitHub/TPI.P3_Napolitano_Salinas_Vazquez/TPI_NapolitanoSalinasVazquez_P3/TPI_NapolitanoSalinasVazquez_P3/Views/Clients/Delete.cshtml]
+[C:/Users/mathy/Desktop/TPIO/TPI.P3_Napolitano_Salinas_Vazquez/TPI_NapolitanoSalinasVazquez_P3/TPI_NapolitanoSalinasVazquez_P3/Views/Clients/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2xpZW50c1xEZWxldGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Ariel/Documents/GitHub/TPI.P3_Napolitano_Salinas_Vazquez/TPI_NapolitanoSalinasVazquez_P3/TPI_NapolitanoSalinasVazquez_P3/Views/Clients/Details.cshtml]
+[C:/Users/mathy/Desktop/TPIO/TPI.P3_Napolitano_Salinas_Vazquez/TPI_NapolitanoSalinasVazquez_P3/TPI_NapolitanoSalinasVazquez_P3/Views/Clients/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2xpZW50c1xEZXRhaWxzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Ariel/Documents/GitHub/TPI.P3_Napolitano_Salinas_Vazquez/TPI_NapolitanoSalinasVazquez_P3/TPI_NapolitanoSalinasVazquez_P3/Views/Clients/Edit.cshtml]
+[C:/Users/mathy/Desktop/TPIO/TPI.P3_Napolitano_Salinas_Vazquez/TPI_NapolitanoSalinasVazquez_P3/TPI_NapolitanoSalinasVazquez_P3/Views/Clients/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2xpZW50c1xFZGl0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Ariel/Documents/GitHub/TPI.P3_Napolitano_Salinas_Vazquez/TPI_NapolitanoSalinasVazquez_P3/TPI_NapolitanoSalinasVazquez_P3/Views/Clients/Index.cshtml]
+[C:/Users/mathy/Desktop/TPIO/TPI.P3_Napolitano_Salinas_Vazquez/TPI_NapolitanoSalinasVazquez_P3/TPI_NapolitanoSalinasVazquez_P3/Views/Clients/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2xpZW50c1xJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Ariel/Documents/GitHub/TPI.P3_Napolitano_Salinas_Vazquez/TPI_NapolitanoSalinasVazquez_P3/TPI_NapolitanoSalinasVazquez_P3/Views/Products/Create.cshtml]
+[C:/Users/mathy/Desktop/TPIO/TPI.P3_Napolitano_Salinas_Vazquez/TPI_NapolitanoSalinasVazquez_P3/TPI_NapolitanoSalinasVazquez_P3/Views/Products/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZHVjdHNcQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Ariel/Documents/GitHub/TPI.P3_Napolitano_Salinas_Vazquez/TPI_NapolitanoSalinasVazquez_P3/TPI_NapolitanoSalinasVazquez_P3/Views/Products/Delete.cshtml]
+[C:/Users/mathy/Desktop/TPIO/TPI.P3_Napolitano_Salinas_Vazquez/TPI_NapolitanoSalinasVazquez_P3/TPI_NapolitanoSalinasVazquez_P3/Views/Products/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZHVjdHNcRGVsZXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Ariel/Documents/GitHub/TPI.P3_Napolitano_Salinas_Vazquez/TPI_NapolitanoSalinasVazquez_P3/TPI_NapolitanoSalinasVazquez_P3/Views/Products/Details.cshtml]
+[C:/Users/mathy/Desktop/TPIO/TPI.P3_Napolitano_Salinas_Vazquez/TPI_NapolitanoSalinasVazquez_P3/TPI_NapolitanoSalinasVazquez_P3/Views/Products/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZHVjdHNcRGV0YWlscy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Ariel/Documents/GitHub/TPI.P3_Napolitano_Salinas_Vazquez/TPI_NapolitanoSalinasVazquez_P3/TPI_NapolitanoSalinasVazquez_P3/Views/Products/Edit.cshtml]
+[C:/Users/mathy/Desktop/TPIO/TPI.P3_Napolitano_Salinas_Vazquez/TPI_NapolitanoSalinasVazquez_P3/TPI_NapolitanoSalinasVazquez_P3/Views/Products/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZHVjdHNcRWRpdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Ariel/Documents/GitHub/TPI.P3_Napolitano_Salinas_Vazquez/TPI_NapolitanoSalinasVazquez_P3/TPI_NapolitanoSalinasVazquez_P3/Views/Products/Index.cshtml]
+[C:/Users/mathy/Desktop/TPIO/TPI.P3_Napolitano_Salinas_Vazquez/TPI_NapolitanoSalinasVazquez_P3/TPI_NapolitanoSalinasVazquez_P3/Views/Products/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZHVjdHNcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Ariel/Documents/GitHub/TPI.P3_Napolitano_Salinas_Vazquez/TPI_NapolitanoSalinasVazquez_P3/TPI_NapolitanoSalinasVazquez_P3/Views/Shared/_ValidationScriptsPartial.cshtml]
+[C:/Users/mathy/Desktop/TPIO/TPI.P3_Napolitano_Salinas_Vazquez/TPI_NapolitanoSalinasVazquez_P3/TPI_NapolitanoSalinasVazquez_P3/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Ariel/Documents/GitHub/TPI.P3_Napolitano_Salinas_Vazquez/TPI_NapolitanoSalinasVazquez_P3/TPI_NapolitanoSalinasVazquez_P3/Views/Users/Create.cshtml]
+[C:/Users/mathy/Desktop/TPIO/TPI.P3_Napolitano_Salinas_Vazquez/TPI_NapolitanoSalinasVazquez_P3/TPI_NapolitanoSalinasVazquez_P3/Views/Users/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlcnNcQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Ariel/Documents/GitHub/TPI.P3_Napolitano_Salinas_Vazquez/TPI_NapolitanoSalinasVazquez_P3/TPI_NapolitanoSalinasVazquez_P3/Views/Users/Delete.cshtml]
+[C:/Users/mathy/Desktop/TPIO/TPI.P3_Napolitano_Salinas_Vazquez/TPI_NapolitanoSalinasVazquez_P3/TPI_NapolitanoSalinasVazquez_P3/Views/Users/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlcnNcRGVsZXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Ariel/Documents/GitHub/TPI.P3_Napolitano_Salinas_Vazquez/TPI_NapolitanoSalinasVazquez_P3/TPI_NapolitanoSalinasVazquez_P3/Views/Users/Details.cshtml]
+[C:/Users/mathy/Desktop/TPIO/TPI.P3_Napolitano_Salinas_Vazquez/TPI_NapolitanoSalinasVazquez_P3/TPI_NapolitanoSalinasVazquez_P3/Views/Users/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlcnNcRGV0YWlscy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Ariel/Documents/GitHub/TPI.P3_Napolitano_Salinas_Vazquez/TPI_NapolitanoSalinasVazquez_P3/TPI_NapolitanoSalinasVazquez_P3/Views/Users/Edit.cshtml]
+[C:/Users/mathy/Desktop/TPIO/TPI.P3_Napolitano_Salinas_Vazquez/TPI_NapolitanoSalinasVazquez_P3/TPI_NapolitanoSalinasVazquez_P3/Views/Users/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlcnNcRWRpdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Ariel/Documents/GitHub/TPI.P3_Napolitano_Salinas_Vazquez/TPI_NapolitanoSalinasVazquez_P3/TPI_NapolitanoSalinasVazquez_P3/Views/Users/Index.cshtml]
+[C:/Users/mathy/Desktop/TPIO/TPI.P3_Napolitano_Salinas_Vazquez/TPI_NapolitanoSalinasVazquez_P3/TPI_NapolitanoSalinasVazquez_P3/Views/Users/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlcnNcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 

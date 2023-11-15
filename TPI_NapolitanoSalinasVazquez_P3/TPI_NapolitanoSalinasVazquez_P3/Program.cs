@@ -26,7 +26,7 @@ builder.Services.AddSwaggerGen(setupAction =>
     {
         Type = SecuritySchemeType.Http,
         Scheme = "Bearer",
-        Description = "Aca pegar Token"
+        Description = "Ingrese el Token generado"
     });
 
     setupAction.AddSecurityRequirement(new OpenApiSecurityRequirement
@@ -55,7 +55,7 @@ builder.Services.AddScoped<IProductService, ProductService>();
 #endregion
 
 
-builder.Services.AddAuthentication("Bearer") //"Bearer" es el tipo de auntenticación que tenemos que elegir después en PostMan para pasarle el token
+builder.Services.AddAuthentication("Bearer") 
     .AddJwtBearer(options =>
     {
         options.TokenValidationParameters = new()
@@ -69,6 +69,10 @@ builder.Services.AddAuthentication("Bearer") //"Bearer" es el tipo de auntentica
         };
     }
 );
+
+builder.Services.AddAuthorization(options => {
+    options.AddPolicy("Admin", policy => policy.RequireClaim("rol", "Admin"));
+});
 
 
 var app = builder.Build();

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using TPI_NapolitanoSalinasVazquez_P3.Interfaces;
 using TPI_NapolitanoSalinasVazquez_P3.Models;
 
@@ -41,6 +42,7 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Controllers
 
         }
 
+        [Authorize(Policy = "Admin")]
         [HttpPost("CreateProduct")]
         public IActionResult AddProduct(Product product)
         {
@@ -48,6 +50,7 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Controllers
             return Ok("Creado correctamente.");
         }
 
+        [Authorize(Policy = "Admin")]
         [HttpPut("ChangeState/{id}")]
         public IActionResult ChangeState(int id, bool? newState)
         {
@@ -62,6 +65,7 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Controllers
             }
         }
 
+        [Authorize(Policy = "Admin")]
         [HttpPut("ModifyProduct/{id}")]
         public IActionResult ModifyProduct(int id, Product updatedProduct)
         {
@@ -76,6 +80,7 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Controllers
             }
         }
 
+        [Authorize(Policy = "Admin")]
         [HttpDelete("DELETEALL")]
         public IActionResult DeleteProducts() 
         {

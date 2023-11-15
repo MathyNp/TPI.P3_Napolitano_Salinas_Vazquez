@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 using TPI_NapolitanoSalinasVazquez_P3.Interfaces;
 using TPI_NapolitanoSalinasVazquez_P3.Models;
@@ -9,6 +8,7 @@ using TPI_NapolitanoSalinasVazquez_P3.Services;
 
 namespace TPI_NapolitanoSalinasVazquez_P3.Controllers
 {
+
     [Route("api/[controller]")]
     [ApiController]
 
@@ -17,29 +17,35 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Controllers
     {
         private readonly IAdminService _adminService;
         private readonly IUserService _userService;
-        
 
-       
         public AdminController(IAdminService adminService, IUserService userService)
         {
             _adminService = adminService;
             _userService = userService;
         }
 
-        [HttpGet("GetAll")]
-        public IActionResult GetAll()
+        [Authorize(Policy = "Admin")]
+        [HttpGet("All Admins")]
+        
+        public IActionResult GetAdmins()
         {
-            var users = _userService.GetAllUsers();
-            return Ok(users);
+            try
+            {
+                List<User> admins = _adminService.GetAdmins();
+                return Ok(admins);
+            }
+            catch
+            {
+                return BadRequest("Credenciales Invalidas");
+            }
         }
 
+        [Authorize(Policy = "Admin")]
         [HttpPost("Create Admin")]
+     
         public IActionResult CreateAdmin([FromBody] UserCreateDto dto)
         {
-            // validacion para que solo pueda crear usuarios un Admin, se guarda el tipo de user en la variable rol
-            string rol = User.Claims.FirstOrDefault(C => C.Type == ClaimTypes.Role).Value.ToString();
-
-            if (rol == UserRoleEnum.Admin.ToString())
+            try
             {
                 Admin admin = new Admin()
                 {
@@ -49,30 +55,31 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Controllers
                     UserRol = UserRoleEnum.Admin,
                 };
                 int id = _userService.CreateUser(admin);
-                return Ok(id);
+                return Ok($"El administrador fue creado correctamente | ID: {admin.UserID} | UserName: {admin.UserName}");
             }
-            return Forbid();
+            catch { return BadRequest("Credenciales Invalidas"); }
+
         }
 
-        [HttpPut]
-        public IActionResult updateAdmin([FromBody] UserUpdateDto dto)
+        [Authorize(Policy = "Admin")]
+        [HttpPut("Update Admin / {id}")]
+     
+        public IActionResult updateAdmin(int id, [FromBody] UserUpdateDto dto)
         {
-            string rol = User.Claims.FirstOrDefault(C => C.Type == ClaimTypes.Role).Value.ToString();
 
-            if (rol == UserRoleEnum.Admin.ToString())
+            try
             {
                 Admin admintoupdate = new Admin()
                 {
-                    UserID = int.Parse(User.Claims.FirstOrDefault(C => C.Type == ClaimTypes.NameIdentifier).Value),
-                    UserMail = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email).Value,
-                    UserName = User.Claims.FirstOrDefault(c => c.Type.Contains("username")).Value,
+                    UserID = id,
+                    UserMail = dto.UserMail,
+                    UserName = dto.UserName,
                     UserPassword = dto.UserPassword,
-
                 };
                 _userService.UpdateUser(admintoupdate);
-                return Ok();
+                return Ok($"Usuario ID:{id} actualizado correctamente.");
             }
-            return Forbid();
+            catch {return BadRequest("Credenciales Invalidas"); }
         }
 
         [HttpGet("GetAllCart")]
@@ -81,6 +88,8 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Controllers
             var cartItems = _userService.GetCart();
             return Ok(cartItems);
         }
+
+
 
     }
 }

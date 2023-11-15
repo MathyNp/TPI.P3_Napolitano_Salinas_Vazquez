@@ -20,7 +20,5 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Models.Dto
 
 
 
-
-
     }
 }
