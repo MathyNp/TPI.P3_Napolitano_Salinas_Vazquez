@@ -17,6 +17,6 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Interfaces
 
         void Update(int id, Product product);
 
-        void ProductSell(int id);
+        void ProductSell(int id, int amount);
     }
 }

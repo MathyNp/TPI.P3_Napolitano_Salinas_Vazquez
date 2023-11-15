@@ -88,18 +88,21 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Controllers
             return Ok("Borrado correctamente.");
         }
 
-        [HttpPut("SellProduct/{id}")]
-        public IActionResult SellProduct(int id)
+        [HttpPut("SellProduct/{id}/{amount}")]
+        public IActionResult SellProduct(int id, int amount)
         {
-            var product = _productService.GetById(id);
+            var product = _productService.GetById(id);          
 
-            if (product.productState == false)
+            
+            try
             {
-                return Conflict("Producto no disponible para la venta.");
+                _productService.ProductSell(id, amount);
+                return Ok("Actualizado");
+            }            
+            catch (InvalidOperationException ex)
+            {
+                return BadRequest(ex.Message);
             }
-
-            _productService.ProductSell(id);
-            return Ok("Actualizado");
         }
 
 
