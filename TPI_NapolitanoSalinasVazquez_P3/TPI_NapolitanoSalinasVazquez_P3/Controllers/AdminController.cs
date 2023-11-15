@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 using TPI_NapolitanoSalinasVazquez_P3.Interfaces;
 using TPI_NapolitanoSalinasVazquez_P3.Models;
@@ -10,17 +11,26 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+
 
     public class AdminController : Controller
     {
         private readonly IAdminService _adminService;
         private readonly IUserService _userService;
+        
 
+       
         public AdminController(IAdminService adminService, IUserService userService)
         {
             _adminService = adminService;
             _userService = userService;
+        }
+
+        [HttpGet("GetAll")]
+        public IActionResult GetAll()
+        {
+            var users = _userService.GetAllUsers();
+            return Ok(users);
         }
 
         [HttpPost("Create Admin")]
@@ -64,5 +74,13 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Controllers
             }
             return Forbid();
         }
+
+        [HttpGet("GetAllCart")]
+        public IActionResult GetAllCart()
+        {
+            var cartItems = _userService.GetCart();
+            return Ok(cartItems);
+        }
+
     }
 }

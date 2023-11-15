@@ -11,8 +11,8 @@ using TPI_NapolitanoSalinasVazquez_P3.Data;
 namespace TPI_NapolitanoSalinasVazquez_P3.Migrations
 {
     [DbContext(typeof(TPI_NapolitanoSalinasVazquez_P3Context))]
-    [Migration("20231110000241_dbact")]
-    partial class dbact
+    [Migration("20231115012158_Cart5")]
+    partial class Cart5
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -43,47 +43,23 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Migrations
                     b.ToTable("Product");
                 });
 
-            modelBuilder.Entity("TPI_NapolitanoSalinasVazquez_P3.Models.SaleOrderLine", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("ProductId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<decimal>("ProductPrice")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("ProductQuantity")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("SaleOrderLineId")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ProductId");
-
-                    b.HasIndex("SaleOrderLineId");
-
-                    b.ToTable("SaleOrderLine");
-                });
-
             modelBuilder.Entity("TPI_NapolitanoSalinasVazquez_P3.Models.ShoppingCart", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("CartId")
+                    b.Property<int>("ProductForeignKeyId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("CartUser")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
+                    b.Property<int>("UserId")
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ProductForeignKeyId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("ShoppingCart");
                 });
@@ -164,21 +140,23 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Migrations
                     b.HasDiscriminator().HasValue(1);
                 });
 
-            modelBuilder.Entity("TPI_NapolitanoSalinasVazquez_P3.Models.SaleOrderLine", b =>
+            modelBuilder.Entity("TPI_NapolitanoSalinasVazquez_P3.Models.ShoppingCart", b =>
                 {
                     b.HasOne("TPI_NapolitanoSalinasVazquez_P3.Models.Product", "Product")
                         .WithMany()
-                        .HasForeignKey("ProductId")
+                        .HasForeignKey("ProductForeignKeyId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("TPI_NapolitanoSalinasVazquez_P3.Models.ShoppingCart", null)
-                        .WithMany("saleOrderLines")
-                        .HasForeignKey("SaleOrderLineId")
+                    b.HasOne("TPI_NapolitanoSalinasVazquez_P3.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Product");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("TPI_NapolitanoSalinasVazquez_P3.Models.Client", b =>
@@ -190,11 +168,6 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Migrations
                         .IsRequired();
 
                     b.Navigation("UserCart");
-                });
-
-            modelBuilder.Entity("TPI_NapolitanoSalinasVazquez_P3.Models.ShoppingCart", b =>
-                {
-                    b.Navigation("saleOrderLines");
                 });
 #pragma warning restore 612, 618
         }

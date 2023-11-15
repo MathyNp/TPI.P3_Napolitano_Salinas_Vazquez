@@ -94,28 +94,35 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Services
         {
             var product = _context.Product.Find(id);
 
-            
-            if (product.productState == false)
+            if (product == null) 
             {
-                throw new InvalidOperationException("El producto no esta disponible para la venta");
+                throw new InvalidOperationException("El producto no existe.");
             }
             else
             {
-                if (product.productStock - amount >= 0)
+                if (product.productState == false)
                 {
-                    product.productStock = product.productStock - amount;
-
-                    if (product.productStock == 0)
-                    {
-                        product.productState = false;
-                    }
-                    _context.SaveChanges();
+                    throw new InvalidOperationException("El producto no esta disponible para la venta");
                 }
                 else
                 {
-                    throw new InvalidOperationException("No se posee suficiente stock");
+                    if (product.productStock - amount >= 0)
+                    {
+                        product.productStock = product.productStock - amount;
+
+                        if (product.productStock == 0)
+                        {
+                            product.productState = false;
+                        }
+                        _context.SaveChanges();
+                    }
+                    else
+                    {
+                        throw new InvalidOperationException("No se posee suficiente stock");
+                    }
                 }
             }
+            
             
                         
         }

@@ -17,5 +17,7 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Services
         {
             return _context.Users.Where(a => a.UserRol == UserRoleEnum.Admin).ToList();
         }
+
+
     }
 }

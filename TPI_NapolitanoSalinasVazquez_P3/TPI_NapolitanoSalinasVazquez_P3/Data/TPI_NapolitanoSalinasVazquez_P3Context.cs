@@ -22,21 +22,9 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Data
             modelBuilder.Entity<Client>()
                 .HasBaseType<User>();
 
-            modelBuilder.Entity<SaleOrderLine>()
-                .HasOne(sol => sol.Product)
-                .WithMany()
-                .HasForeignKey(sol => sol.ProductId);
+           
 
-            modelBuilder.Entity<ShoppingCart>()
-                .HasMany(sc => sc.saleOrderLines)
-                .WithOne()
-                .HasForeignKey(sol => sol.SaleOrderLineId);
-
-            modelBuilder.Entity<Client>()
-                .HasOne(c => c.UserCart)
-                .WithOne()
-                .HasForeignKey<Client>(c => c.UserCartId);
-
+            
             modelBuilder.Entity<Admin>().HasData(
                 new Admin
                 {
@@ -65,7 +53,7 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Data
 
         public DbSet<TPI_NapolitanoSalinasVazquez_P3.Models.Admin>? Admin { get; set; }
 
-        public DbSet<TPI_NapolitanoSalinasVazquez_P3.Models.SaleOrderLine>? SaleOrderLine { get; set; }
+        
 
         public DbSet<TPI_NapolitanoSalinasVazquez_P3.Models.ShoppingCart>? ShoppingCart { get; set; }
 

@@ -5,40 +5,18 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Models
 {
     public class ShoppingCart
     {
-
-        [Key] // Hace que la id sea la clave principal dentro de la BD
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)] // hace que la id se genere con cada user en la BD
-
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
-        [Required]
-        [ForeignKey("CartID")]
-        public int CartId { get; set; }
+        [ForeignKey("UserId")]
+        public int UserId { get; set; }
+        public User User { get; set; }
 
-        [Required]
-        public string CartUser { get; set; }
+        [ForeignKey("productId")]
+        public int productId { get; set; }
+        public Product Product { get; set; }
 
-        [Required]
-        public List<SaleOrderLine> saleOrderLines { get; set; } = new List<SaleOrderLine>();
-
-        [Required]
-        public decimal TotalPrice 
-        {
-            get
-            {
-                decimal totalPriceCart = 0;
-
-                foreach (var saleOrderLine in saleOrderLines)
-                {
-                    totalPriceCart += saleOrderLine.ProductPrice;
-                }
-                
-                return totalPriceCart;
-            }
-        }
-
-
-
-        
     }
 }
+

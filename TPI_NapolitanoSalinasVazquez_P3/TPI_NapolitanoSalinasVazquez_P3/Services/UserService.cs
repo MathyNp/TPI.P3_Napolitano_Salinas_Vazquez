@@ -4,6 +4,7 @@ using TPI_NapolitanoSalinasVazquez_P3.Models;
 using TPI_NapolitanoSalinasVazquez_P3.Models.Responses;
 using System.Linq;
 using TPI_NapolitanoSalinasVazquez_P3.Data;
+using Microsoft.CodeAnalysis;
 
 
 namespace TPI_NapolitanoSalinasVazquez_P3.Services
@@ -16,6 +17,8 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Services
         {
             _context = context;
         }
+
+
 
         // validacion de credenciales - login
         public BaseResponse Login(string mail, string userPassword)
@@ -43,6 +46,11 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Services
             return response;
         }
 
+        public List<User> GetAllUsers()
+        {
+            return _context.Users.ToList();
+        }
+
         //buscar usuario por mail
         public User? GetUserByEmail(string email)
         {
@@ -55,7 +63,7 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Services
             _context.Add(user);
             _context.SaveChanges();
             return user.UserID;
-                }
+        }
 
         // actualizar datos del usuario
         public void UpdateUser(User user)
@@ -74,7 +82,26 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Services
             _context.SaveChanges();
         }
 
+        public void PurchaseProduct(int productId, int UserId )
+        {
+            var cartItem = new ShoppingCart { UserId = UserId, productId = productId };
+            _context.ShoppingCart.Add(cartItem);
+            _context.SaveChanges();
+        }
 
+        public void FinishUserCart(int userId)
+        {
+            var items = _context.ShoppingCart.Where(cartItem => cartItem.UserId == userId).ToList();
+            _context.ShoppingCart.RemoveRange(items);
+            _context.SaveChanges();
+
+        }
+
+        public List<ShoppingCart> GetCart()
+        {
+            return _context.ShoppingCart.ToList();
+
+        }
     }
 
     
