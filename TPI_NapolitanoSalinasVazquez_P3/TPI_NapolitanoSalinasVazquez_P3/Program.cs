@@ -48,8 +48,7 @@ builder.Services.AddSwaggerGen(setupAction =>
 builder.Services.AddDbContext<TPI_NapolitanoSalinasVazquez_P3Context>(options => options.UseSqlite(builder.Configuration["DB:ConnectionString"]));
 
 #region Injections
-builder.Services.AddScoped<IAdminService, AdminService>();
-builder.Services.AddScoped<IClientService, ClientService>();
+
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IProductService, ProductService>();
 #endregion

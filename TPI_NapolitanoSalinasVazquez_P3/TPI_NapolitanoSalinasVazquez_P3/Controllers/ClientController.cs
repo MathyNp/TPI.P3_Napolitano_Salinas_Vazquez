@@ -16,30 +16,16 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Controllers
 
         public class ClientController : ControllerBase
         {
-            private readonly IClientService _clientService;
+            
             private readonly IUserService _userService;
 
-            public ClientController(IClientService clientService, IUserService userService)
+            public ClientController( IUserService userService)
             {
-                _clientService = clientService;
+                
                 _userService = userService;
             }
 
-            [Authorize(Policy = "Admin")]
-            [HttpGet("all client")]
-
-            public IActionResult GetClients() 
-            {
-                try
-                {
-                    List<User> clients = _clientService.GetClients();
-                    return Ok(clients);
-                }
-                catch
-                {
-                    return BadRequest("Credenciales Invalidas");
-                }
-        }
+            
 
             [HttpPost("CreateClient")]
             public IActionResult CreateClient([FromBody] UserCreateClientDto dto)
@@ -57,54 +43,90 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Controllers
                 return Ok(id);
             }
 
-        [HttpPut("Update Client / {id}")]
+            [HttpPut("Update Client / {id}")]
 
-        public IActionResult updateClient(int id, [FromBody] UserUpdateClientDto dto)
-        {
-
-            try
+            public IActionResult updateClient(int id, [FromBody] UserUpdateClientDto dto)
             {
-                Client clienttoupdate = new Client()
+
+                try
                 {
-                    UserID = id,
-                    UserMail = dto.UserMail,
-                    UserName = dto.UserName,
-                    UserPassword = dto.UserPassword,
-                    address = dto.address,
-                };
-                _userService.UpdateUser(clienttoupdate);
-                return Ok($"Usuario ID:{id} actualizado correctamente.");
+                    Client clienttoupdate = new Client()
+                    {
+                        UserID = id,
+                        UserMail = dto.UserMail,
+                        UserName = dto.UserName,
+                        UserPassword = dto.UserPassword,
+                        address = dto.address,
+                    };
+                    _userService.UpdateUser(clienttoupdate);
+                    return Ok($"Usuario ID:{id} actualizado correctamente.");
+                }
+                catch { return BadRequest("Credenciales Invalidas"); }
             }
-            catch { return BadRequest("Credenciales Invalidas"); }
-        }
-        [Authorize(Policy = "Admin")]
-        [HttpDelete("delete client")]
-        public IActionResult DeleteClient()
-        {
-            try
+            [Authorize(Policy = "Admin")]
+            [HttpDelete("delete client")]
+            public IActionResult DeleteClient()
             {
-                int id = int.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value);
-                _userService.DeleteUser(id);
-                return Ok($"Usuario ID:{id} eliminado con exito");
+                try
+                {
+                    int id = int.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value);
+                    _userService.DeleteUser(id);
+                    return Ok($"Usuario ID:{id} eliminado con exito");
+                }
+                catch { return BadRequest("Usuario no encontrado"); }
+
             }
-            catch { return BadRequest("Usuario no encontrado"); }
 
-        }
-
-        [HttpPost("AddToCart/{UserId}/{productId}")]
-            public IActionResult AddToCart(int UserId, int productId) 
+            [HttpPost("AddToCart/{productId}")]            
+            public IActionResult AddToCart(int productId) 
             { 
+                var UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                if (string.IsNullOrEmpty(UserId))
+                {
+
+                    return Unauthorized("El usuario no está autenticado.");
+                }
+                
                 _userService.PurchaseProduct(productId, UserId);
                 return Ok();
             }
 
-            [HttpDelete("FinishCart/{UserId}")]
-            public IActionResult FinishCart(int UserId) 
+            [HttpDelete("FinishCart")]
+            public IActionResult FinishCart() 
             {
-                _userService.FinishUserCart(UserId);
-                return Ok();
+                var UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                if (string.IsNullOrEmpty(UserId))
+                {
+                    return Unauthorized("No logeado");
+                }
+                _userService.FinishUserCart(int.Parse(UserId));
+                return Ok("Carrito terminado.");
+
+                
+            }
+
+            [HttpGet("GetClientCart")]
+            public IActionResult GetClientCart()
+            {
+                var UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                
+
+                try
+                {
+                    if (string.IsNullOrEmpty(UserId))
+                    {
+                        return Unauthorized("No logeado");
+                    }
+
+                    var cart = _userService.GetClientCart(int.Parse(UserId));
+                    return Ok(cart);
+                }
+                catch (ArgumentException ex)
+                {
+                    return BadRequest(ex.Message);
+                }
             }
             
-    }
+        }
 
 }

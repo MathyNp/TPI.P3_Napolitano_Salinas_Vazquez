@@ -51,6 +51,16 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Services
             return _context.Users.ToList();
         }
 
+        public List<User> GetClients()
+        {
+            return _context.Users.Where(a => a.UserRol == UserRoleEnum.Client).ToList();
+        }
+
+        public List<User> GetAdmins()
+        {
+            return _context.Users.Where(a => a.UserRol == UserRoleEnum.Admin).ToList();
+        }
+
         //buscar usuario por mail
         public User? GetUserByEmail(string email)
         {
@@ -90,9 +100,11 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Services
             _context.SaveChanges();*/
         }
 
-        public void PurchaseProduct(int productId, int UserId )
+        public void PurchaseProduct(int productId, string UserId )
         {
-            var cartItem = new ShoppingCart { UserId = UserId, productId = productId };
+            int userIdInt = int.Parse(UserId);
+            var user = _context.Users.FirstOrDefault(u => u.UserID == userIdInt);
+            var cartItem = new ShoppingCart { UserId = userIdInt, productId = productId };
             _context.ShoppingCart.Add(cartItem);
             _context.SaveChanges();
         }
@@ -109,6 +121,17 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Services
         {
             return _context.ShoppingCart.ToList();
 
+        }
+        public List<ShoppingCart> GetClientCart(int userId)
+        {
+            var cartItems = _context.ShoppingCart.Where(u => u.UserId == userId).ToList();
+            if(cartItems.Count == 0)
+            {
+                throw new ArgumentException("El cliente no tiene productos");
+                
+            }
+
+            return cartItems;
         }
 
     }

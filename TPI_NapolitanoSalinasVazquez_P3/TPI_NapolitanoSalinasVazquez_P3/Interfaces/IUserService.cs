@@ -8,7 +8,11 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Interfaces
     {
         public BaseResponse Login(string mail, string userPassword);
 
-        List<User> GetAllUsers();
+        public List<User> GetAllUsers();
+
+        public List<User> GetAdmins();
+
+        public List<User> GetClients();
 
         public int CreateUser(User user);
 
@@ -21,10 +25,12 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Interfaces
 
         public User? GetUserById(int UserID);
 
-        public void PurchaseProduct(int productId, int UserId);
+        public void PurchaseProduct(int productId, string UserId);
 
         public void FinishUserCart(int userId);
 
         List<ShoppingCart> GetCart();
+
+        List<ShoppingCart> GetClientCart(int userId);
     }
 }

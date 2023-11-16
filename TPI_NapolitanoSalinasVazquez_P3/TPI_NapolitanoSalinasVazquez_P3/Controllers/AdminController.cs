@@ -15,12 +15,12 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Controllers
 
     public class AdminController : Controller
     {
-        private readonly IAdminService _adminService;
+        
         private readonly IUserService _userService;
 
-        public AdminController(IAdminService adminService, IUserService userService)
+        public AdminController(IUserService userService)
         {
-            _adminService = adminService;
+            
             _userService = userService;
         }
 
@@ -31,8 +31,24 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Controllers
         {
             try
             {
-                List<User> admins = _adminService.GetAdmins();
+                List<User> admins = _userService.GetAdmins();
                 return Ok(admins);
+            }
+            catch
+            {
+                return BadRequest("Credenciales Invalidas");
+            }
+        }
+
+        [Authorize(Policy = "Admin")]
+        [HttpGet("GetAllClients")]
+
+        public IActionResult GetClients()
+        {
+            try
+            {
+                List<User> clients = _userService.GetClients();
+                return Ok(clients);
             }
             catch
             {
