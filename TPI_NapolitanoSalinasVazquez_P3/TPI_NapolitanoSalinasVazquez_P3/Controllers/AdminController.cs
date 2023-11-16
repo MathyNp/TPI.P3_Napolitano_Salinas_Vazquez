@@ -82,6 +82,19 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Controllers
             catch {return BadRequest("Credenciales Invalidas"); }
         }
 
+        [Authorize(Policy = "Admin")]
+        [HttpDelete("delete admin/ {id}")]
+        public IActionResult DeleteAdmin(int id)
+        {
+
+                var deleteClient= _userService.GetUserById(id);
+                if (deleteClient == null) return BadRequest("usuario no encontrado");
+                
+                _userService.DeleteUser(id);
+                return Ok($"Usuario ID:{id} eliminado con exito");
+
+        }
+
         [HttpGet("GetAllCart")]
         public IActionResult GetAllCart()
         {
@@ -89,7 +102,7 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Controllers
             return Ok(cartItems);
         }
 
-
+       
 
     }
 }

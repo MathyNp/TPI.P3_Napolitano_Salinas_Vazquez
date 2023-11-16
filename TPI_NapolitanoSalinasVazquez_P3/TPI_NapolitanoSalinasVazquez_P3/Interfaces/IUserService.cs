@@ -14,9 +14,12 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Interfaces
 
         public void UpdateUser(User user);
 
+        //public void DeleteUser(int userID);
         public void DeleteUser(int userID);
 
         public User? GetUserByEmail(string userName);
+
+        public User? GetUserById(int UserID);
 
         public void PurchaseProduct(int productId, int UserId);
 

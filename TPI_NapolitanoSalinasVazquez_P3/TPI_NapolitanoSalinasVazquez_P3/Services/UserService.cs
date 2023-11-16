@@ -5,7 +5,7 @@ using TPI_NapolitanoSalinasVazquez_P3.Models.Responses;
 using System.Linq;
 using TPI_NapolitanoSalinasVazquez_P3.Data;
 using Microsoft.CodeAnalysis;
-
+using Microsoft.EntityFrameworkCore;
 
 namespace TPI_NapolitanoSalinasVazquez_P3.Services
 {
@@ -57,6 +57,12 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Services
             return _context.Users.SingleOrDefault(u => u.UserMail == email);
         }
 
+        //buscar usuario por id
+        public User? GetUserById(int userID)
+        {
+            return _context.Users.SingleOrDefault(u => u.UserID == userID);
+        }
+
         // crear usuario
         public int CreateUser(User user)
         {
@@ -74,12 +80,14 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Services
         
 
         // borrar usuario
-        public void DeleteUser(int userId)
+        public void DeleteUser(int userID)
         {
-            User userToBeDeleted = _context.Users.FirstOrDefault(u => u.UserID == userId);
-            userToBeDeleted.UserState = false;
+            var userToBeDeleted = _context.Users.FirstOrDefault(u => u.UserID == userID);
+            _context.Users.Remove(userToBeDeleted);
+            _context.SaveChangesAsync();
+            /*userToBeDeleted.UserState = false;
             _context.Update(userToBeDeleted);
-            _context.SaveChanges();
+            _context.SaveChanges();*/
         }
 
         public void PurchaseProduct(int productId, int UserId )
@@ -102,6 +110,7 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Services
             return _context.ShoppingCart.ToList();
 
         }
+
     }
 
     
