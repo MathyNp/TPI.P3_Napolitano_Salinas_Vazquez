@@ -223,6 +223,25 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Controllers
             }
         }
 
+        // Mostrar los clientes dados de baja
+
+        [Authorize(Policy = "Admin")]
+        [HttpGet("GetClientStateFalse")]
+
+        public IActionResult getClienteStateFalse()
+        {
+            try
+            {
+                List<User> clientStateFalse = _userService.GetUserStateFalse();
+                return Ok(clientStateFalse);
+            }
+            catch
+            {
+                return BadRequest("cledenciales invalidas");
+            }
+            
+        }
+
     }
 
         

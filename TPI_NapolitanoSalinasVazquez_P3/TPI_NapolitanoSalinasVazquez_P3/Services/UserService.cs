@@ -201,7 +201,10 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Services
             _context.SaveChanges();
         }
 
-
+        public List<User> GetUserStateFalse() 
+        {
+            return _context.Users.Where(c=>c.UserState == false).ToList();
+        }
 
     }
 }
