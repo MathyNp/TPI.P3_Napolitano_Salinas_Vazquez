@@ -64,8 +64,8 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Controllers
 
         // Modificar credenciales cliente ----------------------------------------------------------------------
 
-        [Authorize(Policy = "Client")]
-            [HttpPut("Update Client / {id}")]
+            [Authorize(Policy = "Client")]
+            [HttpPut("UpdateClient/{id}")]
 
             public IActionResult updateClient(int id, [FromBody] UserUpdateClientDto dto)
             {
@@ -89,7 +89,7 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Controllers
             // Borrar cliente de la db ----------------------------------------------------------------------------
 
             [Authorize(Policy = "Admin")]
-            [HttpDelete("delete client")]
+            [HttpDelete("DeleteClient")]
             public IActionResult DeleteClient()
             {
                 try
@@ -243,8 +243,7 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Controllers
         }
 
     }
-
-        
+          
         
 
 }

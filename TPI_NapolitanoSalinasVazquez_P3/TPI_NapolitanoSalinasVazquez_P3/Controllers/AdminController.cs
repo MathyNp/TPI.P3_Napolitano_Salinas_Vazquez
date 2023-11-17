@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.DataAnnotations;
 using System.Security.Claims;
 using TPI_NapolitanoSalinasVazquez_P3.Interfaces;
 using TPI_NapolitanoSalinasVazquez_P3.Models;
@@ -28,7 +29,7 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Controllers
         // Lista de Admins --------------------------------------------------------
 
         [Authorize(Policy = "Admin")]
-        [HttpGet("All Admins")]
+        [HttpGet("GetAllAdmins")]
         
         public IActionResult GetAdmins()
         {
@@ -83,7 +84,7 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Controllers
         // Crear Admin --------------------------------------------------------
 
         [Authorize(Policy = "Admin")]
-        [HttpPost("Create Admin")]
+        [HttpPost("CreateAdmin")]
      
         public IActionResult CreateAdmin([FromBody] UserCreateDto dto)
         {
@@ -110,7 +111,7 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Controllers
         // Editar credenciales Admin --------------------------------------------------------
 
         [Authorize(Policy = "Admin")]
-        [HttpPut("Update Admin / {id}")]
+        [HttpPut("UpdateAdmin/{id}")]
      
         public IActionResult updateAdmin(int id, [FromBody] UserUpdateDto dto)
         {
@@ -137,7 +138,7 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Controllers
         // Eliminar Admins -----------------------------------------------------------------
 
         [Authorize(Policy = "Admin")]
-        [HttpDelete("delete admin/ {id}")]
+        [HttpDelete("DeleteAdmin/{id}")]
         public IActionResult DeleteAdmin(int id)
         {
             try
@@ -155,9 +156,25 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Controllers
 
         }
 
+        // ADMIN OPTIONS ---------------------------------------------------------
 
 
-       
+        [HttpGet("GetOutStock")]
+        public IActionResult GetStock()
+        {
+            var outStock = _userService.GetOutStock();
+            try
+            {
+                
+                return Ok(outStock);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
+
 
     }
 }

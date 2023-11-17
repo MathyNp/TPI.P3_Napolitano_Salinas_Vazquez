@@ -206,5 +206,20 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Services
             return _context.Users.Where(c=>c.UserState == false).ToList();
         }
 
+
+        // BUSQUEDA ADMIN - Productos sin stock
+        public List<Product> GetOutStock()
+        {
+            var outStock = _context.Product.Where(c => c.productState == false).ToList();
+
+            if (!outStock.Any())
+            {
+                throw new Exception("No hay productos sin stock.");
+            }
+
+            return outStock;
+        }
+
+
     }
 }

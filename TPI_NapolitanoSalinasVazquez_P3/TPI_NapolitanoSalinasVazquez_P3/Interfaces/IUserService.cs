@@ -38,5 +38,7 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Interfaces
         void ChangeStateUser(int id, bool? newState);
 
         public List<User> GetUserStateFalse();
+
+        public List<Product> GetOutStock();
     }
 }
