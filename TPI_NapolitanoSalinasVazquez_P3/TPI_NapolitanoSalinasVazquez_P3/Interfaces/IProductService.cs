@@ -11,6 +11,8 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Interfaces
 
         void DeleteAll();
 
+        void DeleteById(int id);
+
         Product GetById(int id);
 
         void ChangeState(int id, bool? newState);

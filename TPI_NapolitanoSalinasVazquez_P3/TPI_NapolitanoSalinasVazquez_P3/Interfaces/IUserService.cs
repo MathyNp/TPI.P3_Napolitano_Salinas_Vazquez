@@ -34,5 +34,7 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Interfaces
         public void ClearCart(int userId);
 
         public void FinishUserCart(int userId);
+
+        void ChangeStateUser(int id, bool? newState);
     }
 }

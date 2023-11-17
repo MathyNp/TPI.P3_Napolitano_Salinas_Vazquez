@@ -20,12 +20,12 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Controllers
             private readonly IProductService _productService;
             private readonly TPI_NapolitanoSalinasVazquez_P3Context _context;
 
-        public ClientController( IUserService userService, IProductService productService, TPI_NapolitanoSalinasVazquez_P3Context context)
+            public ClientController( IUserService userService, IProductService productService, TPI_NapolitanoSalinasVazquez_P3Context context)
             {
 
                     _userService = userService;
                     _productService = productService;
-            _context = context;
+                    _context = context;
             }
 
             // Crear cliente - Registro ----------------------------------------------------------------------------
@@ -45,10 +45,26 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Controllers
          
                 return Ok($"El usuario {dto.UserName} fue creado correctamente. ");
             }
+        // Modificar el estado del cliente -----------------------------------------------
 
-            // Modificar credenciales cliente ----------------------------------------------------------------------
-            
-            [Authorize(Policy = "Client")]
+            [Authorize(Policy = "Admin")]
+            [HttpPut("ChangeStateClient/{id}")]
+            public IActionResult ChangeState(int id, bool? newState)
+            {
+                try
+                {
+                    _userService.ChangeStateUser(id, newState);
+                    return Ok($"Cliente {id} suspendido con exito.");
+                }
+                catch (ArgumentException ex)
+                {
+                    return NotFound(ex.Message);
+                }
+            }
+
+        // Modificar credenciales cliente ----------------------------------------------------------------------
+
+        [Authorize(Policy = "Client")]
             [HttpPut("Update Client / {id}")]
 
             public IActionResult updateClient(int id, [FromBody] UserUpdateClientDto dto)
@@ -181,6 +197,8 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Controllers
                     return BadRequest(ex.Message);
                 }
             }
+
+        // Limpiar carrito
 
         [HttpDelete("ClearCart")]
         public IActionResult ClearCart()

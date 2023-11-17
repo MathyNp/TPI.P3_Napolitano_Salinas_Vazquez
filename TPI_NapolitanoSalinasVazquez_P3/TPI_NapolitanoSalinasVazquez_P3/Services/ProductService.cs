@@ -43,6 +43,15 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Services
             _context.SaveChanges();
         }
 
+        // Eliminar Producto por Id -------------------------------------------
+
+        public void DeleteById(int id)
+        {
+            var productid = _context.Product.Find(id);
+            _context.Product.Remove(productid);
+            _context.SaveChanges();
+        }
+
         // Modificar disponibilidad de producto ---------------------------------------------
         public void ChangeState(int id, bool? newState)
         {
@@ -51,7 +60,7 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Services
 
             if (product == null)
             {
-                throw new ArgumentException($"No se encontró un producto con el ID {id}.");
+                throw new ArgumentException($"No se encontró el cliente con el ID {id}.");
             }
 
             product.productState = newState.Value;

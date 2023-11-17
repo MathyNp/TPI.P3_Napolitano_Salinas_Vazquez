@@ -107,6 +107,21 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Controllers
             return Ok("Borrado correctamente.");
         }
 
+        // Eliminar productos por ID ------------------------------------------
+
+        [Authorize(Policy = "Admin")]
+        [HttpDelete("DELETEBYID/{id}")]
+        public IActionResult DeleteProductsById(int id)
+        {
+            var products = _productService.GetById(id);
+            if (products == null)
+            {
+                return Conflict("No existe un producto con ese id para eliminar.");
+            }
+            _productService.DeleteById(id);
+            return Ok("Borrado correctamente.");
+        }
+
         // Vender producto y modificar stock ----------------------
 
         [HttpPut("SellProduct/{id}/{amount}")]

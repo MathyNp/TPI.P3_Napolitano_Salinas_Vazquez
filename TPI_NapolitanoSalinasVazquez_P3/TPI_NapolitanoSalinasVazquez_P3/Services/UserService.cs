@@ -187,7 +187,19 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Services
             _context.SaveChanges();
         }
 
+        public void ChangeStateUser(int id, bool? newState)
+        {
 
+            var user = _context.Users.Find(id);
+
+            if (user == null)
+            {
+                throw new ArgumentException($"No se encontró un producto con el ID {id}.");
+            }
+
+            user.UserState = newState.Value;
+            _context.SaveChanges();
+        }
 
 
 
