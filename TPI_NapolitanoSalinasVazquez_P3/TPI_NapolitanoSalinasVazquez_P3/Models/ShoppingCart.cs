@@ -11,11 +11,12 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Models
 
         [ForeignKey("UserId")]
         public int UserId { get; set; }
-        public User User { get; set; }
+
 
         [ForeignKey("productId")]
         public int productId { get; set; }
-        public Product Product { get; set; }
+
+     
 
     }
 }

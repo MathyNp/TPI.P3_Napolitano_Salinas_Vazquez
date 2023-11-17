@@ -18,6 +18,7 @@ builder.Services.AddDbContext<TPI_NapolitanoSalinasVazquez_P3Context>(options =>
 // Add services to the containers.
 
 builder.Services.AddControllers();
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(setupAction =>
@@ -45,6 +46,9 @@ builder.Services.AddSwaggerGen(setupAction =>
     });
 });
 
+
+// DB
+
 builder.Services.AddDbContext<TPI_NapolitanoSalinasVazquez_P3Context>(options => options.UseSqlite(builder.Configuration["DB:ConnectionString"]));
 
 #region Injections
@@ -53,6 +57,7 @@ builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IProductService, ProductService>();
 #endregion
 
+// Configuracion de Token
 
 builder.Services.AddAuthentication("Bearer") 
     .AddJwtBearer(options =>
@@ -69,8 +74,11 @@ builder.Services.AddAuthentication("Bearer")
     }
 );
 
+// Politicas de autorizacion --------------------------------------
+
 builder.Services.AddAuthorization(options => {
     options.AddPolicy("Admin", policy => policy.RequireClaim("rol", "Admin"));
+    options.AddPolicy("Client", policy => policy.RequireClaim("rol", "Client"));
 });
 
 

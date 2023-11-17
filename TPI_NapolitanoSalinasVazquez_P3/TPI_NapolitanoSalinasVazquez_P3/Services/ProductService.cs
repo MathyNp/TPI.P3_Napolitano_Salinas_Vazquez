@@ -1,7 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 using TPI_NapolitanoSalinasVazquez_P3.Data;
 using TPI_NapolitanoSalinasVazquez_P3.Interfaces;
 using TPI_NapolitanoSalinasVazquez_P3.Models;
+using TPI_NapolitanoSalinasVazquez_P3.Models.Responses;
 
 namespace TPI_NapolitanoSalinasVazquez_P3.Services
 {
@@ -14,22 +16,26 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Services
             _context = context;
         }
 
+        // Lista todos los productos -----------------------------------------------------------
         public IEnumerable<Product> GetAll()
         {
             return _context.Product;
         }
 
-        public  Product GetById(int id)
+        // Buscar producto por ID -------------------------------------------------------------
+        public Product GetById(int id)
         {
             return _context.Product.Find(id);
         }
 
+        // Agregar producto a la DB -----------------------------------------------------------
         public void Add(Product product)
         {
             _context.Product.Add(product);
             _context.SaveChanges();
         }
 
+        // Eliminar todos los productos ------------------------------------------------------
         public void DeleteAll()
         {
             var allProducts = _context.Product.ToList();
@@ -37,9 +43,10 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Services
             _context.SaveChanges();
         }
 
+        // Modificar disponibilidad de producto ---------------------------------------------
         public void ChangeState(int id, bool? newState)
         {
-            
+
             var product = _context.Product.Find(id);
 
             if (product == null)
@@ -50,7 +57,8 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Services
             product.productState = newState.Value;
             _context.SaveChanges();
         }
-        // ...
+
+        // Modificar producto ---------------------------------------------------------------
 
         public void Update(int id, Product updatedProduct)
         {
@@ -59,12 +67,12 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Services
             if (product == null)
             {
                 throw new ArgumentException($"No se encontró un producto con el ID {id}.");
-            }            
+            }
 
             if (updatedProduct.productName == "string")
             {
                 product.productName = product.productName;
-            } 
+            }
             else
             {
                 product.productName = updatedProduct.productName;
@@ -90,11 +98,50 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Services
             _context.SaveChanges();
         }
 
-        public void ProductSell(int id, int amount) 
+        // Calcular total carrito ------------------------------------------
+
+        public decimal CalculateCartTotal(IEnumerable<Product> products)
+        {
+            return products.Sum(product => product.productPrice);
+        }
+
+        // Verificar si la venta se puede realizar (stock y disp) ---------------------------------------------
+
+        public BaseResponse ValidateSell(Product product)
+        {
+            var validationResult = new BaseResponse();
+            
+            if (product.productStock <= 0)
+                {
+                    validationResult.IsSuccess = false;
+                    validationResult.Message = $"El producto {product.productName} no tiene stock disponible para la venta."; 
+                }
+
+            if (!product.productState)
+            {
+                validationResult.IsSuccess = false;
+                validationResult.Message = $"El producto {product.productName} no está disponible para la venta.";
+
+            }
+            if (product == null)
+            {
+                validationResult.IsSuccess = false;
+                validationResult.Message = $"El producto no existe actualmente";
+            }
+            else
+            {
+                validationResult.IsSuccess = true;
+                validationResult.Message = "Compra exitosa";
+            }
+
+            return validationResult;
+        }
+
+        public void ProductSell(int id, int amount)
         {
             var product = _context.Product.Find(id);
 
-            if (product == null) 
+            if (product == null)
             {
                 throw new InvalidOperationException("El producto no existe.");
             }
@@ -122,10 +169,12 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Services
                     }
                 }
             }
-            
-            
-                        
-        }
 
+
+
+        }
     }
 }
+
+    
+

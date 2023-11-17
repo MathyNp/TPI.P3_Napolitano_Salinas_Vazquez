@@ -24,6 +24,9 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Controllers
             _userService = userService;
         }
 
+
+        // Lista de Admins --------------------------------------------------------
+
         [Authorize(Policy = "Admin")]
         [HttpGet("All Admins")]
         
@@ -40,8 +43,11 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Controllers
             }
         }
 
+        // Lista de clientes ====================================================
+
         [Authorize(Policy = "Admin")]
         [HttpGet("GetAllClients")]
+
 
         public IActionResult GetClients()
         {
@@ -50,11 +56,31 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Controllers
                 List<User> clients = _userService.GetClients();
                 return Ok(clients);
             }
-            catch
+            catch(UnauthorizedAccessException)
             {
-                return BadRequest("Credenciales Invalidas");
+                return Forbid("No tienes los permisos necesarios");
             }
         }
+
+        // Lista de carritos --------------------------------------------------------------
+
+        [Authorize(Policy = "Admin")]
+        [HttpGet("GetAllCart")]
+        public IActionResult GetAllCart()
+        {
+            try
+            {
+                var cartItems = _userService.GetCart();
+                return Ok(cartItems);
+            }
+            catch (UnauthorizedAccessException)
+            {
+                return Forbid("No tienes los permisos necesarios");
+            }
+        }
+
+
+        // Crear Admin --------------------------------------------------------
 
         [Authorize(Policy = "Admin")]
         [HttpPost("Create Admin")]
@@ -73,9 +99,15 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Controllers
                 int id = _userService.CreateUser(admin);
                 return Ok($"El administrador fue creado correctamente | ID: {admin.UserID} | UserName: {admin.UserName}");
             }
-            catch { return BadRequest("Credenciales Invalidas"); }
+            catch (UnauthorizedAccessException)
+            {
+                return Forbid("No tienes los permisos necesarios");
+            }
 
         }
+
+
+        // Editar credenciales Admin --------------------------------------------------------
 
         [Authorize(Policy = "Admin")]
         [HttpPut("Update Admin / {id}")]
@@ -95,28 +127,35 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Controllers
                 _userService.UpdateUser(admintoupdate);
                 return Ok($"Usuario ID:{id} actualizado correctamente.");
             }
-            catch {return BadRequest("Credenciales Invalidas"); }
+            catch(UnauthorizedAccessException)
+            {
+                return Forbid("No tienes los permisos necesarios");
+            }
         }
+
+
+        // Eliminar Admins -----------------------------------------------------------------
 
         [Authorize(Policy = "Admin")]
         [HttpDelete("delete admin/ {id}")]
         public IActionResult DeleteAdmin(int id)
         {
-
-                var deleteClient= _userService.GetUserById(id);
+            try
+            {
+                var deleteClient = _userService.GetUserById(id);
                 if (deleteClient == null) return BadRequest("usuario no encontrado");
-                
+
                 _userService.DeleteUser(id);
                 return Ok($"Usuario ID:{id} eliminado con exito");
+            }
+            catch (UnauthorizedAccessException)
+            {
+                return Forbid("No tienes los permisos necesarios");
+            }
 
         }
 
-        [HttpGet("GetAllCart")]
-        public IActionResult GetAllCart()
-        {
-            var cartItems = _userService.GetCart();
-            return Ok(cartItems);
-        }
+
 
        
 

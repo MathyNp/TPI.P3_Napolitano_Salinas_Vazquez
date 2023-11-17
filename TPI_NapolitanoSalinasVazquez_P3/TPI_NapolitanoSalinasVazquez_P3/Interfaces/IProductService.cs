@@ -18,5 +18,9 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Interfaces
         void Update(int id, Product product);
 
         void ProductSell(int id, int amount);
+
+        public BaseResponse ValidateSell(Product product);
+
+        public decimal CalculateCartTotal(IEnumerable<Product> products);
     }
 }

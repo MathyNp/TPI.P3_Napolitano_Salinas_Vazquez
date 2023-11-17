@@ -20,7 +20,7 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Services
 
 
 
-        // validacion de credenciales - login
+        // validacion de credenciales - login -------------------------------------------------------------------------
         public BaseResponse Login(string mail, string userPassword)
         {
             BaseResponse response = new BaseResponse();
@@ -28,52 +28,55 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Services
             if (userForLogin != null)
             {
                 if (userForLogin.UserPassword == userPassword)
-                    {
+                {
                     response.IsSuccess = true;
                     response.Message = "loging Succesfull";
-                    }
-                    else
-                    {
+                }
+                else
+                {
                     response.IsSuccess = false;
                     response.Message = "wrong password";
                 }
-                    }
-            else 
-                {
+            }
+            else
+            {
                 response.IsSuccess = false;
                 response.Message = "wrong email";
             }
             return response;
         }
 
+        // Lista all users --------------------------------------------------------------------------------------------
         public List<User> GetAllUsers()
         {
             return _context.Users.ToList();
         }
 
+        // Lista clientes --------------------------------------------------------------------------------------------
         public List<User> GetClients()
         {
             return _context.Users.Where(a => a.UserRol == UserRoleEnum.Client).ToList();
         }
 
+        // Lista admins --------------------------------------------------------------------------------------------
         public List<User> GetAdmins()
         {
             return _context.Users.Where(a => a.UserRol == UserRoleEnum.Admin).ToList();
         }
 
-        //buscar usuario por mail
+        //Buscar usuario por mail -----------------------------------------------------------------------------------
         public User? GetUserByEmail(string email)
         {
             return _context.Users.SingleOrDefault(u => u.UserMail == email);
         }
 
-        //buscar usuario por id
+        //Buscar usuario por id -------------------------------------------------------------------------------------
         public User? GetUserById(int userID)
         {
             return _context.Users.SingleOrDefault(u => u.UserID == userID);
         }
 
-        // crear usuario
+        // Crear usuario --------------------------------------------------------------------------------------------
         public int CreateUser(User user)
         {
             _context.Add(user);
@@ -81,15 +84,15 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Services
             return user.UserID;
         }
 
-        // actualizar datos del usuario
+        // Actualizar datos del usuario -----------------------------------------------------------------------------
         public void UpdateUser(User user)
         {
             _context.Update(user);
             _context.SaveChanges();
         }
-        
 
-        // borrar usuario
+
+        // Borrar usuario ------------------------------------------------------------------------------------------
         public void DeleteUser(int userID)
         {
             var userToBeDeleted = _context.Users.FirstOrDefault(u => u.UserID == userID);
@@ -100,41 +103,93 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Services
             _context.SaveChanges();*/
         }
 
-        public void PurchaseProduct(int productId, string UserId )
+        // Agregar producto al carrito del cliente -------------------------------------------------------------------
+        public void PurchaseProduct(int productId, string UserId)
         {
             int userIdInt = int.Parse(UserId);
             var user = _context.Users.FirstOrDefault(u => u.UserID == userIdInt);
             var cartItem = new ShoppingCart { UserId = userIdInt, productId = productId };
+
             _context.ShoppingCart.Add(cartItem);
             _context.SaveChanges();
         }
 
+        // Comprar Carrito del cliente ---------------------------------------------------------------------------------
         public void FinishUserCart(int userId)
         {
-            var items = _context.ShoppingCart.Where(cartItem => cartItem.UserId == userId).ToList();
-            _context.ShoppingCart.RemoveRange(items);
-            _context.SaveChanges();
+            var cartItems = _context.ShoppingCart
+                .Where(cartItem => cartItem.UserId == userId)
+                .ToList();
+
+            foreach (var cartItem in cartItems)
+            {
+                var product = _context.Product.Find(cartItem.productId);
+
+                if (product == null)
+                {
+                    throw new InvalidOperationException($"El producto id:{product} no existe.");
+                }
+                else
+                {
+                    if (!product.productState)
+                    {
+                        throw new InvalidOperationException($"El producto id:{product} no esta disponible para la venta");
+                    }
+
+                    if (product.productStock > 0)
+                    {
+                        product.productStock--;
+                        _context.ShoppingCart.Remove(cartItem);
+                    }
+                    else
+                    {
+                        throw new InvalidOperationException($"No se posee suficiente stock del producto id:{product}");
+                    }
+
+                    _context.ShoppingCart.Remove(cartItem);
+                }
+
+                _context.SaveChanges();
+            }
+
 
         }
 
+        // Mostrar todos los carritos ------------------------------------------------------------------------------
         public List<ShoppingCart> GetCart()
         {
             return _context.ShoppingCart.ToList();
 
         }
+
+        // Mostrar carrito del cliente ---------------------------------------------------------------------------
         public List<ShoppingCart> GetClientCart(int userId)
         {
             var cartItems = _context.ShoppingCart.Where(u => u.UserId == userId).ToList();
-            if(cartItems.Count == 0)
+            if (cartItems.Count == 0)
             {
                 throw new ArgumentException("El cliente no tiene productos");
-                
+
             }
 
             return cartItems;
         }
 
-    }
+        // Vaciar carrito 
 
-    
+        public void ClearCart(int userId)
+        {
+            var cartItems = _context.ShoppingCart
+                .Where(u => u.UserId == userId)
+                .ToList();
+
+            _context.ShoppingCart.RemoveRange(cartItems);
+            _context.SaveChanges();
+        }
+
+
+
+
+
+    }
 }

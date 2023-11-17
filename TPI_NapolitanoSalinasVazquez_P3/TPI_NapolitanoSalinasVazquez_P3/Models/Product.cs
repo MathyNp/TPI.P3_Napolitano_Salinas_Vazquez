@@ -17,5 +17,7 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Models
 
         public bool productState { get; set; } = false;
 
+
+
     }
 }

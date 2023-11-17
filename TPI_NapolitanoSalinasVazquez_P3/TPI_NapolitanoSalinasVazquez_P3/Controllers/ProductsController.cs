@@ -18,6 +18,9 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Controllers
             _productService = productService;
         }
 
+
+        // Lista de productos -------------------------------------------
+
         [HttpGet("GetAll")]
         public IActionResult GetProducts()
         {
@@ -29,6 +32,9 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Controllers
             }
             return Ok(products);
         }
+
+
+        // Buscar producto por ID -------------------------------------
 
         [HttpGet("GetById/{id}")]
         public IActionResult GetProductById(int id)
@@ -42,6 +48,8 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Controllers
 
         }
 
+        // Agregar producto a la lista ------------------------------
+
         [Authorize(Policy = "Admin")]
         [HttpPost("CreateProduct")]
         public IActionResult AddProduct(Product product)
@@ -49,6 +57,8 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Controllers
             _productService.Add(product);
             return Ok("Creado correctamente.");
         }
+
+        // Editar disponibilidad de producto ------------------------
 
         [Authorize(Policy = "Admin")]
         [HttpPut("ChangeState/{id}")]
@@ -65,6 +75,8 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Controllers
             }
         }
 
+        // Editar producto por ID ---------------------------------
+
         [Authorize(Policy = "Admin")]
         [HttpPut("ModifyProduct/{id}")]
         public IActionResult ModifyProduct(int id, Product updatedProduct)
@@ -80,6 +92,8 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Controllers
             }
         }
 
+        // Eliminar todos los productos ---------------------------
+
         [Authorize(Policy = "Admin")]
         [HttpDelete("DELETEALL")]
         public IActionResult DeleteProducts() 
@@ -92,6 +106,8 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Controllers
             _productService.DeleteAll();
             return Ok("Borrado correctamente.");
         }
+
+        // Vender producto y modificar stock ----------------------
 
         [HttpPut("SellProduct/{id}/{amount}")]
         public IActionResult SellProduct(int id, int amount)

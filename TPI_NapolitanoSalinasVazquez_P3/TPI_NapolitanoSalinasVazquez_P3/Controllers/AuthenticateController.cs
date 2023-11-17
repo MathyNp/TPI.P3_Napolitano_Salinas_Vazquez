@@ -29,6 +29,7 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Controllers
         public IActionResult Login([FromBody] CredentialsDto credentialsDto)
         {
             BaseResponse loginResult = _userService.Login(credentialsDto.MailUser, credentialsDto.Password);
+
             if ( loginResult.Message == "wrong email") 
             {
                 return BadRequest(loginResult.Message);

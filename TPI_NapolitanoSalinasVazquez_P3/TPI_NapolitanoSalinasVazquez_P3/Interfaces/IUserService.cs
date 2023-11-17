@@ -27,10 +27,12 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Interfaces
 
         public void PurchaseProduct(int productId, string UserId);
 
-        public void FinishUserCart(int userId);
-
         List<ShoppingCart> GetCart();
 
         List<ShoppingCart> GetClientCart(int userId);
+
+        public void ClearCart(int userId);
+
+        public void FinishUserCart(int userId);
     }
 }
