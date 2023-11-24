@@ -173,7 +173,7 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Controllers
 
         // Historial total de las ordenes ----------------------------------------------------------------------------------------------------------------
         [Authorize(Policy = "Admin")]
-        [HttpGet("GetPurchaseHistory")]
+        [HttpGet("GetOrderHistory")]
         public IActionResult GetAllHistory()
         {
             try
@@ -189,7 +189,7 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Controllers
         }
         // Historial de compra por ID --------------------------------------------------------------------------------------------------------------------
         [Authorize(Policy = "Admin")]
-        [HttpGet("GetPurchaseHistoryByUserId")]
+        [HttpGet("GetOrderHistoryByUserId")]
         public IActionResult GetHistoryById(int userId)
         {
             var history = _historyService.GetHistoryByClient(userId);
