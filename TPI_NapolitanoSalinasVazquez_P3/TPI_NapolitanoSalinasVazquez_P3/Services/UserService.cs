@@ -119,11 +119,21 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Services
             int userIdInt = int.Parse(userId);
             var user = _context.Users.FirstOrDefault(u => u.UserID == userIdInt);
 
+
+
             var product = _context.Product.FirstOrDefault(p => p.productID == productId);
 
             if (product == null)
             {
                 throw new InvalidOperationException($"El producto con ID {productId} no existe.");
+            }
+
+            int totalAmount = _context.ShoppingCart.Count(item => item.UserId == userIdInt && item.productId == productId);
+            int finalAmount = totalAmount + amount;
+
+            if (finalAmount > product.productStock)
+            {
+                throw new InvalidOperationException("La suma de su carrito y su nuevo pedido supera el stock disponible");
             }
 
             if (product.productStock < amount)
@@ -149,7 +159,7 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Services
                 .ToList();
 
             decimal totalAmount = 0;
-            List<int> purchasedProductIds = new List<int>(); // Lista para almacenar los IDs de productos comprados
+            List<int> purchasedProductIds = new List<int>(); 
             
             
 
@@ -172,7 +182,7 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Services
                     {
                         product.productStock--;
                         totalAmount += product.productPrice;
-                        purchasedProductIds.Add(product.productID); // Agregar el ID del producto comprado a la lista
+                        purchasedProductIds.Add(product.productID); 
                         if (product.productStock <= 0)
                         {
                             product.productState = false;
@@ -188,12 +198,12 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Services
                 }
             }
 
-            // Crear una nueva instancia de History y guardarla en la base de datos
+            
             var history = new History
             {
                 UserId = userId,
                 Date = DateTime.UtcNow,
-                ProductIds = JsonSerializer.Serialize(purchasedProductIds), // Almacenar la lista como cadena JSON
+                ProductIds = JsonSerializer.Serialize(purchasedProductIds),
                 Amount = totalAmount
             };
 
