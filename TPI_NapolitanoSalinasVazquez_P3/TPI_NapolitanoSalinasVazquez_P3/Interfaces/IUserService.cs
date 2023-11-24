@@ -41,6 +41,8 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Interfaces
 
         public List<Product> GetOutStock();
 
-        public List<History> GetHistories(int userId);
+        public List<History> GetOrder(int userId);
+
+        public List<History> GetAllOrders();
     }
 }

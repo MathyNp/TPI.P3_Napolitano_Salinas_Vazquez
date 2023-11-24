@@ -6,6 +6,7 @@ using System.Linq;
 using TPI_NapolitanoSalinasVazquez_P3.Data;
 using Microsoft.CodeAnalysis;
 using Microsoft.EntityFrameworkCore;
+using System.Text.Json;
 
 namespace TPI_NapolitanoSalinasVazquez_P3.Services
 {
@@ -122,6 +123,7 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Services
                 .ToList();
 
             decimal totalAmount = 0;
+            List<int> purchasedProductIds = new List<int>();
 
 
             foreach (var cartItem in cartItems)
@@ -143,6 +145,7 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Services
                     {
                         product.productStock--;
                         totalAmount += product.productPrice;
+                        purchasedProductIds.Add(product.productID);
                     }
 
                     else
@@ -157,6 +160,7 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Services
                 {
                     UserId = userId,
                     Date = DateTime.UtcNow,
+                    ProductIds = JsonSerializer.Serialize(purchasedProductIds),
                     Amount = totalAmount
 
                 };
@@ -236,9 +240,20 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Services
 
         // Historial de compra por id
 
-        public List<History> GetHistories(int userId) 
+        public List<History> GetOrder(int userId) 
         {
             return _context.Histories.Where(h => h.UserId == userId).ToList();
+        }
+
+        public List<History> GetAllOrders()
+        {
+            var history = _context.Histories.ToList();
+
+            if (!history.Any())
+            {
+                throw new Exception("Vacio / Error");
+            }
+            return history;
         }
 
 

@@ -26,6 +26,7 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Data
                 .HasMany(u => u.History)
                 .WithOne()
                 .HasForeignKey(h => h.UserId);
+                
 
            
 

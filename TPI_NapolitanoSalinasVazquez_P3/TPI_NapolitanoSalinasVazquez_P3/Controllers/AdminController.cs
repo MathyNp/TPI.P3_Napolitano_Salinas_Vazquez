@@ -25,6 +25,78 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Controllers
             _userService = userService;
         }
 
+        // Crear Admin --------------------------------------------------------
+
+        [Authorize(Policy = "Admin")]
+        [HttpPost("CreateAdmin")]
+
+        public IActionResult CreateAdmin([FromBody] UserCreateDto dto)
+        {
+            try
+            {
+                Admin admin = new Admin()
+                {
+                    UserMail = dto.UserMail,
+                    UserName = dto.UserName,
+                    UserPassword = dto.UserPassword,
+                    UserRol = UserRoleEnum.Admin,
+                };
+                int id = _userService.CreateUser(admin);
+                return Ok($"El administrador fue creado correctamente | ID: {admin.UserID} | UserName: {admin.UserName}");
+            }
+            catch (UnauthorizedAccessException)
+            {
+                return Forbid("No tienes los permisos necesarios");
+            }
+
+        }
+
+        // Editar credenciales Admin --------------------------------------------------------
+
+        [Authorize(Policy = "Admin")]
+        [HttpPut("UpdateAdmin/{id}")]
+
+        public IActionResult updateAdmin(int id, [FromBody] UserUpdateDto dto)
+        {
+
+            try
+            {
+                Admin admintoupdate = new Admin()
+                {
+                    UserID = id,
+                    UserMail = dto.UserMail,
+                    UserName = dto.UserName,
+                    UserPassword = dto.UserPassword,
+                };
+                _userService.UpdateUser(admintoupdate);
+                return Ok($"Usuario ID:{id} actualizado correctamente.");
+            }
+            catch (UnauthorizedAccessException)
+            {
+                return Forbid("No tienes los permisos necesarios");
+            }
+        }
+
+        // Eliminar Admins -----------------------------------------------------------------
+
+        [Authorize(Policy = "Admin")]
+        [HttpDelete("DeleteAdmin/{id}")]
+        public IActionResult DeleteAdmin(int id)
+        {
+            try
+            {
+                var deleteClient = _userService.GetUserById(id);
+                if (deleteClient == null) return BadRequest("usuario no encontrado");
+
+                _userService.DeleteUser(id);
+                return Ok($"Usuario ID:{id} eliminado con exito");
+            }
+            catch (UnauthorizedAccessException)
+            {
+                return Forbid("No tienes los permisos necesarios");
+            }
+
+        }
 
         // Lista de Admins --------------------------------------------------------
 
@@ -81,84 +153,17 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Controllers
         }
 
 
-        // Crear Admin --------------------------------------------------------
-
-        [Authorize(Policy = "Admin")]
-        [HttpPost("CreateAdmin")]
-     
-        public IActionResult CreateAdmin([FromBody] UserCreateDto dto)
-        {
-            try
-            {
-                Admin admin = new Admin()
-                {
-                    UserMail = dto.UserMail,
-                    UserName = dto.UserName,
-                    UserPassword = dto.UserPassword,
-                    UserRol = UserRoleEnum.Admin,
-                };
-                int id = _userService.CreateUser(admin);
-                return Ok($"El administrador fue creado correctamente | ID: {admin.UserID} | UserName: {admin.UserName}");
-            }
-            catch (UnauthorizedAccessException)
-            {
-                return Forbid("No tienes los permisos necesarios");
-            }
-
-        }
+        
 
 
-        // Editar credenciales Admin --------------------------------------------------------
-
-        [Authorize(Policy = "Admin")]
-        [HttpPut("UpdateAdmin/{id}")]
-     
-        public IActionResult updateAdmin(int id, [FromBody] UserUpdateDto dto)
-        {
-
-            try
-            {
-                Admin admintoupdate = new Admin()
-                {
-                    UserID = id,
-                    UserMail = dto.UserMail,
-                    UserName = dto.UserName,
-                    UserPassword = dto.UserPassword,
-                };
-                _userService.UpdateUser(admintoupdate);
-                return Ok($"Usuario ID:{id} actualizado correctamente.");
-            }
-            catch(UnauthorizedAccessException)
-            {
-                return Forbid("No tienes los permisos necesarios");
-            }
-        }
+        
 
 
-        // Eliminar Admins -----------------------------------------------------------------
-
-        [Authorize(Policy = "Admin")]
-        [HttpDelete("DeleteAdmin/{id}")]
-        public IActionResult DeleteAdmin(int id)
-        {
-            try
-            {
-                var deleteClient = _userService.GetUserById(id);
-                if (deleteClient == null) return BadRequest("usuario no encontrado");
-
-                _userService.DeleteUser(id);
-                return Ok($"Usuario ID:{id} eliminado con exito");
-            }
-            catch (UnauthorizedAccessException)
-            {
-                return Forbid("No tienes los permisos necesarios");
-            }
-
-        }
+        
 
         // ADMIN OPTIONS ---------------------------------------------------------
 
-
+        [Authorize(Policy = "Admin")]
         [HttpGet("GetOutStock")]
         public IActionResult GetStock()
         {
@@ -173,6 +178,42 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Controllers
                 return StatusCode(500, ex.Message);
             }
         }
+
+        // Historial total de las ordenes
+        [Authorize(Policy = "Admin")]
+        [HttpGet("GetOrders")]
+        public IActionResult GetAllOrders()
+        {
+            try
+            {
+                var orders = _userService.GetAllOrders();
+                return Ok(orders);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+
+        }
+        // Historial de compra por ID
+        [Authorize(Policy = "Admin")]
+        [HttpGet("GetOrdersByUserID")]
+        public IActionResult GetOrderUserId(int userId)
+        {
+            try
+            {
+                var history = _userService.GetOrder(userId);
+                return Ok(history);
+            }
+            catch
+            {
+                return BadRequest("Error al obtener el historial de compra");
+            };
+        }
+
+        
+
+
 
 
 
