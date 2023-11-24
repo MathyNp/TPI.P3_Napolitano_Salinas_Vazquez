@@ -47,8 +47,7 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Controllers
                 return Ok($"El usuario {dto.UserName} | ID: {userId} Fue creado correctamente. ");
             }
         // Modificar el estado del cliente -----------------------------------------------
-
-        [Authorize(Policy = "Client")]
+        [Authorize(Policy = "Admin")]
         [HttpPut("ChangeStateClient")]
             public IActionResult ChangeState(int id, bool? newState)
             {
@@ -60,7 +59,7 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Controllers
                 try
                 {
                     _userService.ChangeStateUser(id, newState);
-                    return Ok($"Cliente {id} suspendido con exito.");
+                    return Ok($"Actualizacion del estado del usuario {id} con exito.");
                 }
                 catch (ArgumentException ex)
                 {

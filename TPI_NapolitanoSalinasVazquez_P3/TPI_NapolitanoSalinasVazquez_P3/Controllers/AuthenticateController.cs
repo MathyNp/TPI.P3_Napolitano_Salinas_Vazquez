@@ -42,6 +42,11 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Controllers
             {
                 User user = _userService.GetUserByEmail(credentialsDto.MailUser);
 
+                if (!user.UserState)
+                {
+                    return BadRequest("Usuario inactivo. No se puede iniciar sesion");
+                }
+
                 var securityPassword = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(_config["Authentication:SecretForKey"]));
                 var signature = new SigningCredentials(securityPassword, SecurityAlgorithms.HmacSha256);
                 string roleClaimValue = user.UserRol.ToString();
