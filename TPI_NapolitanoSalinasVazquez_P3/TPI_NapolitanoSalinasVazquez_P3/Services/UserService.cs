@@ -225,7 +225,7 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Services
             var cartItems = _context.ShoppingCart.Where(u => u.UserId == userId).ToList();
             if (cartItems.Count == 0)
             {
-                throw new ArgumentException("El cliente no tiene productos");
+                throw new InvalidOperationException("El cliente no tiene productos");
 
             }
 

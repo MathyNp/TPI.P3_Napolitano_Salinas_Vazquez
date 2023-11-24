@@ -133,7 +133,7 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Controllers
                 var cart = _userService.GetClientCart(int.Parse(UserId));
                 return Ok(cart);
             }
-            catch (ArgumentException ex)
+            catch (InvalidOperationException ex)
             {
                 return BadRequest(ex.Message);
             }
