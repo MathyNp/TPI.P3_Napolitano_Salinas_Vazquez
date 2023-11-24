@@ -29,7 +29,9 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Models
 
         public bool UserState { get; set; } = true;
 
-        
+        public List<History> History { get; set; }
+
+
 
     }
    

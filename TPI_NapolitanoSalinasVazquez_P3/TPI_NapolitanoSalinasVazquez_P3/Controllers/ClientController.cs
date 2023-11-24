@@ -242,6 +242,22 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Controllers
             
         }
 
+        // Historial de compra por ID
+
+        [HttpGet("GetHistoryByUserID")]
+        public IActionResult GetHistoryUserId(int userId)
+        {
+            try
+            {
+                var history = _userService.GetHistories(userId);
+                return Ok(history);
+            }
+            catch
+            {
+                return BadRequest("Error al obtener el historial de compra");
+            };
+        }
+
     }
           
         

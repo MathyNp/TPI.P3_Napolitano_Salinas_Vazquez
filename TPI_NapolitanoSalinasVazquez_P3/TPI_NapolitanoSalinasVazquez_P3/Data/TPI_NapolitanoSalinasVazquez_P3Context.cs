@@ -22,6 +22,11 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Data
             modelBuilder.Entity<Client>()
                 .HasBaseType<User>();
 
+            modelBuilder.Entity<User>()
+                .HasMany(u => u.History)
+                .WithOne()
+                .HasForeignKey(h => h.UserId);
+
            
 
             
@@ -53,7 +58,7 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Data
 
         public DbSet<TPI_NapolitanoSalinasVazquez_P3.Models.Admin>? Admin { get; set; }
 
-        
+        public DbSet<TPI_NapolitanoSalinasVazquez_P3.Models.History>?Histories { get; set; }
 
         public DbSet<TPI_NapolitanoSalinasVazquez_P3.Models.ShoppingCart>? ShoppingCart { get; set; }
 

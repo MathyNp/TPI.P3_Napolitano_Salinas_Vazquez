@@ -121,6 +121,9 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Services
                 .Where(cartItem => cartItem.UserId == userId)
                 .ToList();
 
+            decimal totalAmount = 0;
+
+
             foreach (var cartItem in cartItems)
             {
                 var product = _context.Product.Find(cartItem.productId);
@@ -139,8 +142,9 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Services
                     if (product.productStock > 0)
                     {
                         product.productStock--;
-                        _context.ShoppingCart.Remove(cartItem);
+                        totalAmount += product.productPrice;
                     }
+
                     else
                     {
                         throw new InvalidOperationException($"No se posee suficiente stock del producto id:{product}");
@@ -148,6 +152,16 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Services
 
                     _context.ShoppingCart.Remove(cartItem);
                 }
+
+                var history = new History
+                {
+                    UserId = userId,
+                    Date = DateTime.UtcNow,
+                    Amount = totalAmount
+
+                };
+
+                _context.Histories.Add(history);
 
                 _context.SaveChanges();
             }
@@ -218,6 +232,13 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Services
             }
 
             return outStock;
+        }
+
+        // Historial de compra por id
+
+        public List<History> GetHistories(int userId) 
+        {
+            return _context.Histories.Where(h => h.UserId == userId).ToList();
         }
 
 
