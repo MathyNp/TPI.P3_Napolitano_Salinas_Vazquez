@@ -5,6 +5,7 @@ using System.Security.Claims;
 using TPI_NapolitanoSalinasVazquez_P3.Interfaces;
 using TPI_NapolitanoSalinasVazquez_P3.Models;
 using TPI_NapolitanoSalinasVazquez_P3.Models.Dto;
+using TPI_NapolitanoSalinasVazquez_P3.Models.Responses;
 using TPI_NapolitanoSalinasVazquez_P3.Services;
 
 namespace TPI_NapolitanoSalinasVazquez_P3.Controllers
@@ -18,11 +19,13 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Controllers
     {
         
         private readonly IUserService _userService;
+        private readonly IHistoryService _historyService;
 
-        public AdminController(IUserService userService)
+        public AdminController(IUserService userService, IHistoryService historyService)
         {
             
             _userService = userService;
+            _historyService = historyService;
         }
 
         // Crear Admin --------------------------------------------------------
@@ -151,16 +154,6 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Controllers
                 return Forbid("No tienes los permisos necesarios");
             }
         }
-
-
-        
-
-
-        
-
-
-        
-
         // ADMIN OPTIONS ---------------------------------------------------------
 
         [Authorize(Policy = "Admin")]
@@ -170,7 +163,6 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Controllers
             var outStock = _userService.GetOutStock();
             try
             {
-                
                 return Ok(outStock);
             }
             catch (Exception ex)
@@ -179,14 +171,14 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Controllers
             }
         }
 
-        // Historial total de las ordenes
+        // Historial total de las ordenes ----------------------------------------------------------------------------------------------------------------
         [Authorize(Policy = "Admin")]
-        [HttpGet("GetOrders")]
-        public IActionResult GetAllOrders()
+        [HttpGet("GetPurchaseHistory")]
+        public IActionResult GetAllHistory()
         {
             try
             {
-                var orders = _userService.GetAllOrders();
+                var orders = _historyService.GetAllHistory();
                 return Ok(orders);
             }
             catch (Exception ex)
@@ -195,25 +187,24 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Controllers
             }
 
         }
-        // Historial de compra por ID
+        // Historial de compra por ID --------------------------------------------------------------------------------------------------------------------
         [Authorize(Policy = "Admin")]
-        [HttpGet("GetOrdersByUserID")]
-        public IActionResult GetOrderUserId(int userId)
+        [HttpGet("GetPurchaseHistoryByUserId")]
+        public IActionResult GetHistoryById(int userId)
         {
-            try
-            {
-                var history = _userService.GetOrder(userId);
-                return Ok(history);
-            }
-            catch
-            {
-                return BadRequest("Error al obtener el historial de compra");
-            };
+            var history = _historyService.GetHistoryByClient(userId);
+
+            if (history == null)
+             {
+                return BadRequest($"No se encontro ningun usuario con el id {userId}");
+             }
+
+            return Ok(history);
         }
 
 
 
-        // traer clientes desactivados
+        // Lista de clientes dados de baja -------------------------------------------------------------------------------------------------------------
         [Authorize(Policy = "Admin")]
         [HttpGet("GetClientStateFalse")]
 
@@ -226,7 +217,7 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Controllers
             }
             catch
             {
-                return BadRequest("cledenciales invalidas");
+                return BadRequest("Credenciales invalidas");
             }
 
         }

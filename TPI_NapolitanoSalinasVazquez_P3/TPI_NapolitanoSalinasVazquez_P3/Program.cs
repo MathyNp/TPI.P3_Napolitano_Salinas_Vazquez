@@ -55,6 +55,7 @@ builder.Services.AddDbContext<TPI_NapolitanoSalinasVazquez_P3Context>(options =>
 
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<IHistoryService, HistoryService>();
 #endregion
 
 // Configuracion de Token

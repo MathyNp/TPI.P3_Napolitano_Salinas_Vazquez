@@ -28,7 +28,7 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Controllers
                     _context = context;
             }
 
-            // Crear cliente - Registro ----------------------------------------------------------------------------
+            // Crear cliente - Registro ---------------------------------------------------------------------------- >>
             
             [HttpPost("CreateClient")]
             public IActionResult CreateClient([FromBody] UserCreateClientDto dto)
@@ -48,8 +48,8 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Controllers
             }
         // Modificar el estado del cliente -----------------------------------------------
 
-            [Authorize(Policy = "Client")]
-            [HttpPut("ChangeStateClient")]
+        [Authorize(Policy = "Client")]
+        [HttpPut("ChangeStateClient")]
             public IActionResult ChangeState(int id, bool? newState)
             {
                 var UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -108,7 +108,7 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Controllers
                     var product = _productService.GetById(productId);                   
 
                     _userService.PurchaseProduct(productId, UserId, amount);
-                    return Ok("Agregado ok.");
+                    return Ok($"{amount} producto/s del id:{productId} agregado/s correctamente al carrito del usuario {UserId}");
             }
                 catch (InvalidOperationException ex)
                 {

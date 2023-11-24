@@ -14,23 +14,25 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Services
             _context = context;
         }
 
-        // Listar historial de compra
+        // Listar historial de compra ----------------------------------------------------------------------------------------------------------------
 
         public IEnumerable<History> GetAllHistory()
         {
-            return _context.Histories.ToList();
+            var history = _context.Histories.ToList();
+
+            if (!history.Any())
+            {
+                throw new Exception("No hay historial de compras");
+            }
+            return history;
         }
 
-        // Lista el historial de compras realizado por un cliente determinado 
+        // Lista el historial de compras realizado por un cliente determinado ------------------------------------------------------------------------
         public IEnumerable<History> GetHistoryByClient(int userId) 
         {
             return _context.Histories.Where(i => i.UserId == userId).ToList();
         }
 
-        // Lista el historial de compras en un rango de tiempo
-        public IEnumerable<History> GetHistoryByDateRange(DateTime startTime, DateTime endTime) 
-        {
-            return _context.Histories.Where(h=> h.Date >= startTime && h.Date <= endTime).ToList();
-        }
+
     }
 }

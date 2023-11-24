@@ -10,6 +10,5 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Interfaces
 
         IEnumerable<History> GetHistoryByClient(int userId);
 
-        IEnumerable<History> GetHistoryByDateRange(DateTime startTime, DateTime endTime);
     }
 }

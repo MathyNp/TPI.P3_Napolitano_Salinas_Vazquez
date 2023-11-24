@@ -126,8 +126,6 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Services
                 throw new InvalidOperationException($"El producto con ID {productId} no existe.");
             }
 
-            
-
             if (product.productStock < amount)
             {
                 throw new InvalidOperationException($"No hay suficiente stock del producto con ID {productId}.");
@@ -269,23 +267,6 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Services
             return outStock;
         }
 
-        // Historial de compra por id
-
-        public List<History> GetOrder(int userId) 
-        {
-            return _context.Histories.Where(h => h.UserId == userId).ToList();
-        }
-
-        public List<History> GetAllOrders()
-        {
-            var history = _context.Histories.ToList();
-
-            if (!history.Any())
-            {
-                throw new Exception("Vacio / Error");
-            }
-            return history;
-        }
 
 
     }
