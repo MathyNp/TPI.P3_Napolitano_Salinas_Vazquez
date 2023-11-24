@@ -80,9 +80,18 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Services
         // Crear usuario --------------------------------------------------------------------------------------------
         public int CreateUser(User user)
         {
-            _context.Add(user);
-            _context.SaveChanges();
-            return user.UserID;
+            try
+            {
+                _context.Add(user);
+                _context.SaveChanges();
+                return user.UserID;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+                throw;
+            }
+            
         }
 
         // Actualizar datos del usuario -----------------------------------------------------------------------------
@@ -215,7 +224,7 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Services
             return cartItems;
         }
 
-        // Vaciar carrito 
+        // Vaciar carrito ----------------------------------------------------------------------------------------
 
         public void ClearCart(int userId)
         {

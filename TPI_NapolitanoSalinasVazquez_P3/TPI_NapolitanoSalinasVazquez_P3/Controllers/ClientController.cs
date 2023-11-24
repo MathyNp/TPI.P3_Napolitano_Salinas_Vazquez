@@ -42,8 +42,9 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Controllers
                     address = dto.address,
                 };
 
-         
-                return Ok($"El usuario {dto.UserName} fue creado correctamente. ");
+            int userId = _userService.CreateUser(client);
+
+                return Ok($"El usuario {dto.UserName} | ID: {userId} Fue creado correctamente. ");
             }
         // Modificar el estado del cliente -----------------------------------------------
 
