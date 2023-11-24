@@ -91,33 +91,32 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Controllers
                 catch { return BadRequest("Credenciales Invalidas"); }
             }
 
-            
-            
-            
-            // Agregar producto al carrito por ID ---------------------------------------------------------------
 
-            
-            [HttpPost("AddToCart/{productId}")]
-            public IActionResult AddToCart(int productId)
+
+
+        // Agregar producto al carrito por ID ---------------------------------------------------------------
+
+        [Authorize(Policy = "Client")]
+        [HttpPost("AddToCart/{productId}/{amount}")]
+            public IActionResult AddToCart(int productId, int amount)
             {
                 var UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-                if (string.IsNullOrEmpty(UserId))
+                
+                try
                 {
-                    return Unauthorized("Debe iniciar sesion para agregar productos al carrito.");
-                }
+                    var product = _productService.GetById(productId);                   
 
-                var product = _productService.GetById(productId);
-                if (product == null)
-                {
-                    return NotFound($"El producto con ID {productId} no existe.");
-                }
-
-                _userService.PurchaseProduct(productId, UserId);
-                return Ok();
+                    _userService.PurchaseProduct(productId, UserId, amount);
+                    return Ok("Agregado ok.");
             }
+                catch (InvalidOperationException ex)
+                {
+                    return BadRequest(ex.Message);
+                }
+        }
 
         // Mostrar carrito ---------------------------------------------------------------------------------
-
+        [Authorize(Policy = "Client")]
         [HttpGet("GetClientCart")]
         public IActionResult GetClientCart()
         {
@@ -141,12 +140,13 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Controllers
         }
 
         // Comprar carrito -----------------------------------------------------------------------------------
-
+        [Authorize(Policy = "Client")]
         [HttpPut("FinishCart")]
         public IActionResult FinishCart()
         {
             var UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
+            
             try
             {
                 if (string.IsNullOrEmpty(UserId))
@@ -181,10 +181,9 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Controllers
 
                 return Ok($"Compra realizada con exito, total: ${totalPrice}");
             }
-            catch
+            catch (InvalidOperationException ex)
             {
-
-                return BadRequest("Error al procesar la compra");
+                return BadRequest(ex.Message);
             }
         }
 
@@ -192,20 +191,20 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Controllers
 
 
         // Limpiar carrito
-
+        [Authorize(Policy = "Client")]
         [HttpDelete("ClearCart")]
         public IActionResult ClearCart()
         {
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
             try
             {
-                if (string.IsNullOrEmpty(userId))
+                if (string.IsNullOrEmpty(UserId))
                 {
                     return Unauthorized("No logeado");
                 }
 
-                _userService.ClearCart(int.Parse(userId));
+                _userService.ClearCart(int.Parse(UserId));
 
                 return Ok("Carrito vaciado con éxito.");
             }

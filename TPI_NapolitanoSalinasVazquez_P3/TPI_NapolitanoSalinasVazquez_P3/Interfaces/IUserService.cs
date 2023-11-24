@@ -25,7 +25,7 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Interfaces
 
         public User? GetUserById(int UserID);
 
-        public void PurchaseProduct(int productId, string UserId);
+        public void PurchaseProduct(int productId, string UserId, int amount);
 
         List<ShoppingCart> GetCart();
 

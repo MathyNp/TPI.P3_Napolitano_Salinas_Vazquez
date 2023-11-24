@@ -105,12 +105,27 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Services
         }
 
         // Agregar producto al carrito del cliente -------------------------------------------------------------------
-        public void PurchaseProduct(int productId, string UserId)
+        public void PurchaseProduct(int productId, string userId, int amount)
         {
-            int userIdInt = int.Parse(UserId);
+            int userIdInt = int.Parse(userId);
             var user = _context.Users.FirstOrDefault(u => u.UserID == userIdInt);
-            var cartItem = new ShoppingCart { UserId = userIdInt, productId = productId };
 
+            var product = _context.Product.FirstOrDefault(p => p.productID == productId);
+
+            if (product == null)
+            {
+                throw new InvalidOperationException($"El producto con ID {productId} no existe.");
+            }
+
+            
+
+            if (product.productStock < amount)
+            {
+                throw new InvalidOperationException($"No hay suficiente stock del producto con ID {productId}.");
+            }
+
+            
+            var cartItem = new ShoppingCart { UserId = userIdInt, productId = productId };
             _context.ShoppingCart.Add(cartItem);
             _context.SaveChanges();
         }
@@ -123,8 +138,9 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Services
                 .ToList();
 
             decimal totalAmount = 0;
-            List<int> purchasedProductIds = new List<int>();
-
+            List<int> purchasedProductIds = new List<int>(); // Lista para almacenar los IDs de productos comprados
+            
+            
 
             foreach (var cartItem in cartItems)
             {
@@ -138,40 +154,42 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Services
                 {
                     if (!product.productState)
                     {
-                        throw new InvalidOperationException($"El producto id:{product} no esta disponible para la venta");
+                        throw new InvalidOperationException("Un producto introducido no esta disponible para la venta.");
                     }
 
                     if (product.productStock > 0)
                     {
                         product.productStock--;
                         totalAmount += product.productPrice;
-                        purchasedProductIds.Add(product.productID);
+                        purchasedProductIds.Add(product.productID); // Agregar el ID del producto comprado a la lista
+                        if (product.productStock <= 0)
+                        {
+                            product.productState = false;
+                            _context.SaveChanges();
+                        }
                     }
-
                     else
                     {
-                        throw new InvalidOperationException($"No se posee suficiente stock del producto id:{product}");
+                        throw new InvalidOperationException("No se posee suficiente stock de alguno de los productos");
                     }
 
                     _context.ShoppingCart.Remove(cartItem);
                 }
-
-                var history = new History
-                {
-                    UserId = userId,
-                    Date = DateTime.UtcNow,
-                    ProductIds = JsonSerializer.Serialize(purchasedProductIds),
-                    Amount = totalAmount
-
-                };
-
-                _context.Histories.Add(history);
-
-                _context.SaveChanges();
             }
 
+            // Crear una nueva instancia de History y guardarla en la base de datos
+            var history = new History
+            {
+                UserId = userId,
+                Date = DateTime.UtcNow,
+                ProductIds = JsonSerializer.Serialize(purchasedProductIds), // Almacenar la lista como cadena JSON
+                Amount = totalAmount
+            };
 
+            _context.Histories.Add(history);
+            _context.SaveChanges();
         }
+
 
         // Mostrar todos los carritos ------------------------------------------------------------------------------
         public List<ShoppingCart> GetCart()
