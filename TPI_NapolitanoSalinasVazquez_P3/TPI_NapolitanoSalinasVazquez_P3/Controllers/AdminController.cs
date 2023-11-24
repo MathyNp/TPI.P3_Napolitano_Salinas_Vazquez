@@ -211,8 +211,42 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Controllers
             };
         }
 
-        
 
+
+        // traer clientes desactivados
+        [Authorize(Policy = "Admin")]
+        [HttpGet("GetClientStateFalse")]
+
+        public IActionResult getClienteStateFalse()
+        {
+            try
+            {
+                List<User> clientStateFalse = _userService.GetUserStateFalse();
+                return Ok(clientStateFalse);
+            }
+            catch
+            {
+                return BadRequest("cledenciales invalidas");
+            }
+
+        }
+
+
+        // Borrar cliente de la db ----------------------------------------------------------------------------
+
+        [Authorize(Policy = "Admin")]
+        [HttpDelete("DeleteClient")]
+        public IActionResult DeleteClient()
+        {
+            try
+            {
+                int id = int.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value);
+                _userService.DeleteUser(id);
+                return Ok($"Usuario ID:{id} eliminado con exito");
+            }
+            catch { return BadRequest("Usuario no encontrado"); }
+
+        }
 
 
 

@@ -47,10 +47,15 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Controllers
             }
         // Modificar el estado del cliente -----------------------------------------------
 
-            [Authorize(Policy = "Admin")]
-            [HttpPut("ChangeStateClient/{id}")]
+            [Authorize(Policy = "Client")]
+            [HttpPut("ChangeStateClient")]
             public IActionResult ChangeState(int id, bool? newState)
             {
+                var UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                if (string.IsNullOrEmpty(UserId))
+                {
+                    return Unauthorized("Debe iniciar sesion para cambiar su estado.");
+                }
                 try
                 {
                     _userService.ChangeStateUser(id, newState);
@@ -86,48 +91,58 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Controllers
                 catch { return BadRequest("Credenciales Invalidas"); }
             }
 
-            // Borrar cliente de la db ----------------------------------------------------------------------------
-
-            [Authorize(Policy = "Admin")]
-            [HttpDelete("DeleteClient")]
-            public IActionResult DeleteClient()
-            {
-                try
-                {
-                    int id = int.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value);
-                    _userService.DeleteUser(id);
-                    return Ok($"Usuario ID:{id} eliminado con exito");
-                }
-                catch { return BadRequest("Usuario no encontrado"); }
-
-            }
+            
             
             
             // Agregar producto al carrito por ID ---------------------------------------------------------------
 
             
             [HttpPost("AddToCart/{productId}")]
-        public IActionResult AddToCart(int productId)
+            public IActionResult AddToCart(int productId)
+            {
+                var UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                if (string.IsNullOrEmpty(UserId))
+                {
+                    return Unauthorized("Debe iniciar sesion para agregar productos al carrito.");
+                }
+
+                var product = _productService.GetById(productId);
+                if (product == null)
+                {
+                    return NotFound($"El producto con ID {productId} no existe.");
+                }
+
+                _userService.PurchaseProduct(productId, UserId);
+                return Ok();
+            }
+
+        // Mostrar carrito ---------------------------------------------------------------------------------
+
+        [HttpGet("GetClientCart")]
+        public IActionResult GetClientCart()
         {
             var UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            if (string.IsNullOrEmpty(UserId))
-            {
-                return Unauthorized("Debe iniciar sesion para agregar productos al carrito.");
-            }
 
-            var product = _productService.GetById(productId);
-            if (product == null)
-            {
-                return NotFound($"El producto con ID {productId} no existe.");
-            }
 
-            _userService.PurchaseProduct(productId, UserId);
-            return Ok();
+            try
+            {
+                if (string.IsNullOrEmpty(UserId))
+                {
+                    return Unauthorized("No logeado");
+                }
+
+                var cart = _userService.GetClientCart(int.Parse(UserId));
+                return Ok(cart);
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         // Comprar carrito -----------------------------------------------------------------------------------
 
-        [HttpDelete("FinishCart")]
+        [HttpPut("FinishCart")]
         public IActionResult FinishCart()
         {
             var UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -174,29 +189,7 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Controllers
         }
 
 
-        // Mostrar carrito ---------------------------------------------------------------------------------
 
-        [HttpGet("GetClientCart")]
-            public IActionResult GetClientCart()
-            {
-                var UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-                
-
-                try
-                {
-                    if (string.IsNullOrEmpty(UserId))
-                    {
-                        return Unauthorized("No logeado");
-                    }
-
-                    var cart = _userService.GetClientCart(int.Parse(UserId));
-                    return Ok(cart);
-                }
-                catch (ArgumentException ex)
-                {
-                    return BadRequest(ex.Message);
-                }
-            }
 
         // Limpiar carrito
 
@@ -223,24 +216,9 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Controllers
             }
         }
 
-        // Mostrar los clientes dados de baja
+        
 
-        [Authorize(Policy = "Admin")]
-        [HttpGet("GetClientStateFalse")]
-
-        public IActionResult getClienteStateFalse()
-        {
-            try
-            {
-                List<User> clientStateFalse = _userService.GetUserStateFalse();
-                return Ok(clientStateFalse);
-            }
-            catch
-            {
-                return BadRequest("cledenciales invalidas");
-            }
-            
-        }
+        
 
         
 

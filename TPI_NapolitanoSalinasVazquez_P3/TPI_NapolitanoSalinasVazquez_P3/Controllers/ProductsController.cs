@@ -122,24 +122,7 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Controllers
             return Ok("Borrado correctamente.");
         }
 
-        // Vender producto y modificar stock ----------------------
-
-        [HttpPut("SellProduct/{id}/{amount}")]
-        public IActionResult SellProduct(int id, int amount)
-        {
-            var product = _productService.GetById(id);          
-
-            
-            try
-            {
-                _productService.ProductSell(id, amount);
-                return Ok("Actualizado");
-            }            
-            catch (InvalidOperationException ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
+        
 
 
     }
