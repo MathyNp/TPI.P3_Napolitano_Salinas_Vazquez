@@ -124,9 +124,13 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Services
                 throw new InvalidOperationException($"No hay suficiente stock del producto con ID {productId}.");
             }
 
+            for (int i = 0; i < amount; i++)
+            {
+                var cartItem = new ShoppingCart { UserId = userIdInt, productId = productId };
+                _context.ShoppingCart.Add(cartItem);
+            }
             
-            var cartItem = new ShoppingCart { UserId = userIdInt, productId = productId };
-            _context.ShoppingCart.Add(cartItem);
+            
             _context.SaveChanges();
         }
 
