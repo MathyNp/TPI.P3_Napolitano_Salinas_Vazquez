@@ -50,13 +50,15 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Services
         // Lista all users --------------------------------------------------------------------------------------------
         public List<User> GetAllUsers()
         {
-            return _context.Users.ToList();
+            return _context.Users
+                .Include(u => u.History)
+                .ToList();
         }
 
         // Lista clientes --------------------------------------------------------------------------------------------
         public List<User> GetClients()
         {
-            return _context.Users.Where(a => a.UserRol == UserRoleEnum.Client).ToList();
+            return _context.Users.Where(a => a.UserRol == UserRoleEnum.Client).Include(u => u.History).ToList();
         }
 
         // Lista admins --------------------------------------------------------------------------------------------
