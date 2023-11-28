@@ -41,6 +41,6 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Interfaces
 
         public List<Product> GetOutStock();
 
-
+        public decimal CalculateDiscountedPrice(int userId, int productPrice);
     }
 }

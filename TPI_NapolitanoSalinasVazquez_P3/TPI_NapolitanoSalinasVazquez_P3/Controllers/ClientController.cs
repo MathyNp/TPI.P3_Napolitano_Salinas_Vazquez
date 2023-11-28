@@ -40,6 +40,7 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Controllers
                     UserPassword = dto.UserPassword,
                     UserRol = UserRoleEnum.Client,
                     address = dto.address,
+                    paymentMethod = dto.paymentMethod,
                 };
 
             int userId = _userService.CreateUser(client);
@@ -84,6 +85,7 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Controllers
                         UserName = dto.UserName,
                         UserPassword = dto.UserPassword,
                         address = dto.address,
+                        paymentMethod = dto.paymentMethod,
                     };
                     _userService.UpdateUser(clienttoupdate);
                     return Ok($"Usuario ID:{id} actualizado correctamente.");
@@ -174,12 +176,21 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Controllers
                         return BadRequest(validationResult);
                     }
 
-                    totalPrice += product.productPrice;
+                    decimal discountedPrice = _userService.CalculateDiscountedPrice(int.Parse(UserId), product.productPrice);
+
+                    totalPrice += discountedPrice;
                 }
 
-                _userService.FinishUserCart(int.Parse(UserId));
+                var user = _context.Users.Find(int.Parse(UserId)) as Client;
+                var paymentMessage = user?.paymentMethod == 1 ? "transferencia 10% de descuento" :
+                                     user?.paymentMethod == 2 ? "tarjeta" :
+                                     "otro";
 
-                return Ok($"Compra realizada con exito, total: ${totalPrice}");
+                return Ok($"Compra realizada con éxito, con {paymentMessage}  total: ${totalPrice}");
+
+                //_userService.FinishUserCart(int.Parse(UserId));
+
+                //return Ok($"Compra realizada con exito, total: ${totalPrice}");
             }
             catch (InvalidOperationException ex)
             {

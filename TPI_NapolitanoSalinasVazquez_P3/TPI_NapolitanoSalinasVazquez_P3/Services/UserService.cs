@@ -7,6 +7,7 @@ using TPI_NapolitanoSalinasVazquez_P3.Data;
 using Microsoft.CodeAnalysis;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json;
+using Microsoft.AspNetCore.Mvc;
 
 namespace TPI_NapolitanoSalinasVazquez_P3.Services
 {
@@ -156,13 +157,15 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Services
         // Comprar Carrito del cliente ---------------------------------------------------------------------------------
         public void FinishUserCart(int userId)
         {
+            var user = _context.Users.Find(userId); 
+
             var cartItems = _context.ShoppingCart
                 .Where(cartItem => cartItem.UserId == userId)
                 .ToList();
 
             decimal totalAmount = 0;
-            List<int> purchasedProductIds = new List<int>(); 
-            
+            List<int> purchasedProductIds = new List<int>();
+
             
 
             foreach (var cartItem in cartItems)
@@ -182,6 +185,8 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Services
 
                     if (product.productStock > 0)
                     {
+                        
+
                         product.productStock--;
                         totalAmount += product.productPrice;
                         purchasedProductIds.Add(product.productID); 
@@ -211,6 +216,20 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Services
 
             _context.Histories.Add(history);
             _context.SaveChanges();
+        }
+
+        //calculo de descuento pagando con transferencia 
+
+        public decimal CalculateDiscountedPrice(int userId, int productPrice)
+        {
+            var user = _context.Users.Find(userId) as Client;
+
+            if (user != null && user.paymentMethod == 1)
+            {
+                return productPrice * 0.9m;
+            }
+
+            return productPrice;
         }
 
 

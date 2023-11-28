@@ -9,7 +9,7 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Models
 
         public string address { get; set; }
 
-        public string paymentMethod { get; set; }
+        public int paymentMethod { get; set; }
 
         
     }

@@ -138,6 +138,24 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Controllers
             }
         }
 
+        //Lista de todos los usuarios ------------------------------------------------
+
+        [Authorize(Policy = "Admin")]
+        [HttpGet("GetAllAdmins")]
+
+        public IActionResult GetAllUsers() 
+        {
+            try
+            {
+                List<User> users = _userService.GetAllUsers();
+                return Ok(users);
+            }
+            catch(UnauthorizedAccessException)
+            {
+                return Forbid("No tienes los permisos necesarios");
+            }
+        }
+
         // Lista de carritos --------------------------------------------------------------
 
         [Authorize(Policy = "Admin")]

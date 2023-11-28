@@ -15,5 +15,9 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Models.Dto
         public string? UserMail { get; set; } = string.Empty;
         [Required]
         public string address {  get; set; } = string.Empty;
+
+        [Required]
+
+        public int paymentMethod { get; set; }
     }
 }
