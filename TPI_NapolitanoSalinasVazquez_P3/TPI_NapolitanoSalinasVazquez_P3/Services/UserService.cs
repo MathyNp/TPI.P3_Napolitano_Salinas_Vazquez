@@ -94,7 +94,7 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Services
                 Console.WriteLine($"Error: {ex.Message}");
                 throw;
             }
-            
+
         }
 
         // Actualizar datos del usuario -----------------------------------------------------------------------------
@@ -149,15 +149,15 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Services
                 var cartItem = new ShoppingCart { UserId = userIdInt, productId = productId };
                 _context.ShoppingCart.Add(cartItem);
             }
-            
-            
+
+
             _context.SaveChanges();
         }
 
         // Comprar Carrito del cliente ---------------------------------------------------------------------------------
         public void FinishUserCart(int userId)
         {
-            var user = _context.Users.Find(userId); 
+            var user = _context.Users.Find(userId);
 
             var cartItems = _context.ShoppingCart
                 .Where(cartItem => cartItem.UserId == userId)
@@ -166,7 +166,7 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Services
             decimal totalAmount = 0;
             List<int> purchasedProductIds = new List<int>();
 
-            
+
 
             foreach (var cartItem in cartItems)
             {
@@ -185,11 +185,11 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Services
 
                     if (product.productStock > 0)
                     {
-                        
+
 
                         product.productStock--;
                         totalAmount += product.productPrice;
-                        purchasedProductIds.Add(product.productID); 
+                        purchasedProductIds.Add(product.productID);
                         if (product.productStock <= 0)
                         {
                             product.productState = false;
@@ -205,7 +205,7 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Services
                 }
             }
 
-            
+
             var history = new History
             {
                 UserId = userId,
@@ -216,6 +216,9 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Services
 
             _context.Histories.Add(history);
             _context.SaveChanges();
+
+
+
         }
 
         //calculo de descuento pagando con transferencia 
@@ -279,9 +282,9 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Services
             _context.SaveChanges();
         }
 
-        public List<User> GetUserStateFalse() 
+        public List<User> GetUserStateFalse()
         {
-            return _context.Users.Where(c=>c.UserState == false).ToList();
+            return _context.Users.Where(c => c.UserState == false).ToList();
         }
 
 
@@ -298,6 +301,33 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Services
             return outStock;
         }
 
+        // Generador de recibo de clientes ----------------------------------
+
+        /*public Receipt GenerateReceipt(int userId)
+        {
+            var user = _context.Users.Find(userId);
+            var history = _context.Histories
+                .Where(h => h.UserId == userId)
+                .OrderByDescending(h => h.Date)
+                .FirstOrDefault();
+
+            var receipt = new Receipt
+            {
+                UserName = user.UserName,
+                Date = history.Date,
+                TotalAmount = history.Amount,
+                Products = history.ProductIds
+            .Select(pid => _context.Product.Find(pid))
+            .Select(product => new Product
+            {
+                productName = product.productName,
+                productPrice = product.productPrice
+            })
+            .ToList()
+            };
+
+            return receipt;
+        }*/
 
 
     }

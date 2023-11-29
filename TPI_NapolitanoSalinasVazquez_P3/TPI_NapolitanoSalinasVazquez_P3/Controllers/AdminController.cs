@@ -141,7 +141,7 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Controllers
         //Lista de todos los usuarios ------------------------------------------------
 
         [Authorize(Policy = "Admin")]
-        [HttpGet("GetAllAdmins")]
+        [HttpGet("GetAllUsers")]
 
         public IActionResult GetAllUsers() 
         {
@@ -256,8 +256,6 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Controllers
             catch { return BadRequest("Usuario no encontrado"); }
 
         }
-
-
 
 
     }

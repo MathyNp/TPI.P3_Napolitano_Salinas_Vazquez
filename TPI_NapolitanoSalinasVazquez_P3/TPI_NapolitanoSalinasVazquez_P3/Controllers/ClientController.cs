@@ -186,9 +186,9 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Controllers
                                      user?.paymentMethod == 2 ? "tarjeta" :
                                      "otro";
 
-                return Ok($"Compra realizada con éxito, con {paymentMessage}  total: ${totalPrice}");
+                _userService.FinishUserCart(int.Parse(UserId));
 
-                //_userService.FinishUserCart(int.Parse(UserId));
+                return Ok($"Compra realizada con éxito, con {paymentMessage}  total: ${totalPrice}");
 
                 //return Ok($"Compra realizada con exito, total: ${totalPrice}");
             }
@@ -226,11 +226,6 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Controllers
             }
         }
 
-        
-
-        
-
-        
 
     }
           
