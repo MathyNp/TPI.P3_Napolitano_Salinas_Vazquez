@@ -6,7 +6,7 @@
         public int UserId { get; set; }
         public DateTime Date { get; set; }
 
-        
+        public string ProductNames { get; set; }
         public string ProductIds { get; set; }
 
         public decimal Amount { get; set; }

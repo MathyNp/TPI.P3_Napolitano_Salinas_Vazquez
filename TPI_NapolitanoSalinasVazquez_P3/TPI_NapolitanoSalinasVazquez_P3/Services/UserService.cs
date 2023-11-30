@@ -166,7 +166,7 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Services
             decimal totalAmount = 0;
             List<int> purchasedProductIds = new List<int>();
 
-
+            List<string> purchasedProductNames = new List<string>();
 
             foreach (var cartItem in cartItems)
             {
@@ -185,7 +185,7 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Services
 
                     if (product.productStock > 0)
                     {
-
+                        purchasedProductNames.Add(product.productName);
 
                         product.productStock--;
                         totalAmount += product.productPrice;
@@ -211,6 +211,7 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Services
                 UserId = userId,
                 Date = DateTime.UtcNow,
                 ProductIds = JsonSerializer.Serialize(purchasedProductIds),
+                ProductNames = string.Join(", ", purchasedProductNames),
                 Amount = totalAmount
             };
 
