@@ -93,8 +93,28 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Controllers
                 catch { return BadRequest("Credenciales Invalidas"); }
             }
 
+        // Modificar metodo de pago-----------------------------------------------------------
 
+        [Authorize(Policy = "Client")]
+        [HttpPut("ChangePaymentMethod")]
+        public IActionResult ChangePaymentMethod(int id, int newPaymentMethod)
+        {
+            var UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
+            if (string.IsNullOrEmpty(UserId))
+            {
+                return Unauthorized("Debe iniciar sesion para cambiar su metodo de pago.");
+            }
+            try
+            {
+                _userService.ChangePaymentMethod(id, newPaymentMethod);
+                return Ok($"Actualizacion del metodo de pago del usuario {id} con exito.");
+            }
+            catch (ArgumentException ex)
+            {
+                return NotFound(ex.Message);
+            }
+        }
 
         // Agregar producto al carrito por ID ---------------------------------------------------------------
 

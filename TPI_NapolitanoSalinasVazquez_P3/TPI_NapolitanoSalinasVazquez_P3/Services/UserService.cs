@@ -187,8 +187,10 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Services
                     {
                         purchasedProductNames.Add(product.productName);
 
+                        decimal discountedPrice = CalculateDiscountedPrice(userId, product.productPrice);
+
                         product.productStock--;
-                        totalAmount += product.productPrice;
+                        totalAmount += discountedPrice;
                         purchasedProductIds.Add(product.productID);
                         if (product.productStock <= 0)
                         {
@@ -269,6 +271,7 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Services
             _context.SaveChanges();
         }
 
+        //cambiar el estado del usuario ---------------------------------------------------------------
         public void ChangeStateUser(int id, bool? newState)
         {
 
@@ -276,13 +279,14 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Services
 
             if (user == null)
             {
-                throw new ArgumentException($"No se encontró un producto con el ID {id}.");
+                throw new ArgumentException($"No se encontró un usuario con el ID {id}.");
             }
 
             user.UserState = newState.Value;
             _context.SaveChanges();
         }
 
+        //Lista de usuarios dados de baja ---------------------------------------------------------------
         public List<User> GetUserStateFalse()
         {
             return _context.Users.Where(c => c.UserState == false).ToList();
@@ -300,6 +304,21 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Services
             }
 
             return outStock;
+        }
+
+        //Cambiar metodo de pago ---------------------------------------------------------------------------
+        public void ChangePaymentMethod(int id, int? newPaymentMethod)
+        {
+
+            var user = _context.Users.Find(id);
+
+            if (user == null)
+            {
+                throw new ArgumentException($"No se encontró un usuario con el ID {id}.");
+            }
+
+            user.paymentMethod = newPaymentMethod.Value;
+            _context.SaveChanges();
         }
 
         // Generador de recibo de clientes ----------------------------------

@@ -43,6 +43,6 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Interfaces
 
         public decimal CalculateDiscountedPrice(int userId, int productPrice);
 
-        
+        public void ChangePaymentMethod(int id, int? newPaymentMethod);
     }
 }

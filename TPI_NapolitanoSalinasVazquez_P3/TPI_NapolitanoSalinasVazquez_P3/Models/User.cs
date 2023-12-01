@@ -29,6 +29,8 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Models
 
         public bool UserState { get; set; } = true;
 
+        public int paymentMethod { get; set; }
+
         public List<History> History { get; set; }
 
 
