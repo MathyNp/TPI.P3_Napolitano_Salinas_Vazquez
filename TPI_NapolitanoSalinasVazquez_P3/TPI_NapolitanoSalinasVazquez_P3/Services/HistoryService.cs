@@ -33,6 +33,12 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Services
             return _context.Histories.Where(i => i.UserId == userId).ToList();
         }
 
-
+        // Lista el historial de compras por rango de fechas ---------------------------------------------------
+        public List<History> GetHistoriesByDateRange(DateTime startDate, DateTime endDate)
+        {
+            return _context.Histories
+                .Where(history => history.Date >= startDate && history.Date <= endDate)
+                .ToList();
+        }
     }
 }

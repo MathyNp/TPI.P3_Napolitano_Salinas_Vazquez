@@ -49,7 +49,7 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Controllers
             }
         // Modificar el estado del cliente -----------------------------------------------
         [Authorize(Policy = "Admin")]
-        [HttpPut("ChangeStateClient")]
+        [HttpPut("ChangeStateUser")]
             public IActionResult ChangeState(int id, bool? newState)
             {
                 var UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);

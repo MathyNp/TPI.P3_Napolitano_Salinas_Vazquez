@@ -220,7 +220,22 @@ namespace TPI_NapolitanoSalinasVazquez_P3.Controllers
             return Ok(history);
         }
 
+        // filtra por fecha------------------------------------------------------------------------------
 
+        [Authorize(Policy = "Admin")]
+        [HttpGet("filtreDate")]
+        public ActionResult<List<History>> GetHistoriesByDateRange([FromQuery] DateTime startDate, [FromQuery] DateTime endDate)
+        {
+            try
+            {
+                var histories = _historyService.GetHistoriesByDateRange(startDate, endDate);
+                return Ok(histories);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"Error: {ex.Message}");
+            }
+        }
 
         // Lista de clientes dados de baja -------------------------------------------------------------------------------------------------------------
         [Authorize(Policy = "Admin")]
